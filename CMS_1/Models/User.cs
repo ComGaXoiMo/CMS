@@ -11,7 +11,7 @@ namespace CMS_1.Models
 
         [Required]
         [EmailAddress]
-        [StringLength(20)]
+        [StringLength(30)]
         public string Email { get; set; }   
         [Required]
         [StringLength(20,MinimumLength =6)]

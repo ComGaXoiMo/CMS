@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "qOOmXTev5RC+oV7HL+KH4/bTXQeCsYVoJ2FUfrDLxN67m7BiptGpZo007RdGCjwh4aK9RJQnkBDFks4Hd4CebA==",
+  "dgSpecHash": "k7LPWmRo2THZy8t/H/FjeKspj34CQSEd66NKUbIgNKvRio4blFxLvNRfUYQh8Yo+KZteJhrnqaZYCEFdl68CLg==",
   "success": true,
   "projectFilePath": "C:\\Users\\viet\\Desktop\\THUCTAP\\CMS_1\\CMS_1\\CMS_1.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\viet\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
+    "C:\\Users\\viet\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\5.0.6\\microsoft.aspnetcore.authentication.jwtbearer.5.0.6.nupkg.sha512",
     "C:\\Users\\viet\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\viet\\.nuget\\packages\\microsoft.data.sqlclient\\2.1.4\\microsoft.data.sqlclient.2.1.4.nupkg.sha512",
     "C:\\Users\\viet\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\2.1.1\\microsoft.data.sqlclient.sni.runtime.2.1.1.nupkg.sha512",
