@@ -4,6 +4,9 @@ namespace CMS_1.System
 {
     public interface IUserService
     {
-        LoginResponse Authenticate(LoginRequest model);
+        Task<LoginResponse> Authenticate(LoginRequest model);
+        Task<ForgotPasswordResponse>  ForgotPassword(FogotPasswordRequest model);
+        Task<RecoverPasswordResponse>  RecoverPassword(RecoverPasswordRequest model);
+       
     }
 }

@@ -17,7 +17,5 @@ namespace CMS_1.Models
         [StringLength(20,MinimumLength =6)]
         [RegularExpression("^(?=.*[a-z])(?=.*[A-Z])(?=.*/d)[a-zA-Z/d]{6,}$")]
         public string Password { get; set; }
-
-
     }
 }

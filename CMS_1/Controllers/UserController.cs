@@ -1,5 +1,6 @@
 ﻿using CMS_1.Models;
 using CMS_1.System;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,20 +10,31 @@ namespace CMS_1.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        public IUserService _userService;
+        private IUserService _userService;
         public UserController(IUserService userService)
         {
             _userService = userService;
         }
 
         [HttpPost]
-        public IActionResult Login(LoginRequest model)
+        public async Task<IActionResult> Login(LoginRequest model)
         {
-            var result = _userService.Authenticate(model);
-            if(result == null)
-               
-                return BadRequest(new LoginResponse{ Error = "Please check your email and password then try again", Success = false });
+            var result = await _userService.Authenticate(model);
             return Ok(result);
+        }
+        [HttpPost]
+        public async Task<IActionResult>  ForgotPassword(FogotPasswordRequest model)
+        {
+            
+            var result = await _userService.ForgotPassword(model);          
+            return Ok(result);           
+        }
+        [HttpPut]
+        [Authorize]
+        public async Task<IActionResult> RecoverPassword(RecoverPasswordRequest model)
+        {
+            var resul = await _userService.RecoverPassword(model);
+            return Ok(resul);
         }
     }
 }
