@@ -6,14 +6,17 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CMS_1.Controllers
 {
-    [Route("api/[controller]/[action]")]
     [ApiController]
+    [Route("api/[controller]/[action]")]
     public class UserController : ControllerBase
     {
-        private IUserService _userService;
-        public UserController(IUserService userService)
+        private readonly IUserService _userService;
+        private readonly AppDbContext _appDbContext;
+
+        public UserController(IUserService userService, AppDbContext appDbContext)
         {
             _userService = userService;
+            _appDbContext = appDbContext;
         }
 
         [HttpPost]
@@ -33,8 +36,25 @@ namespace CMS_1.Controllers
         [Authorize]
         public async Task<IActionResult> RecoverPassword(RecoverPasswordRequest model)
         {
-            var resul = await _userService.RecoverPassword(model);
-            return Ok(resul);
+            var resul = await _userService.RecoverPassword(model);            
+                var value = "";
+                var claims = HttpContext.User.Claims.Where(x => x.Type == "ID");
+                foreach (var claim in claims)
+                {
+                    value = claim.Value; 
+                }
+                var user = _appDbContext.Users.SingleOrDefault(u => u.Id == Convert.ToInt32(value));
+
+                if(user != null)
+                {
+                    user.Password = model.Password;
+                    _userService.Save(user);
+                    return Ok(resul);
+                }
+                else
+                {
+                    return BadRequest();
+                }          
         }
     }
 }

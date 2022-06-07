@@ -19,8 +19,8 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Swagger ", Version = "v1" });
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
+        Description = "Enter a valid token",
         In = ParameterLocation.Header,
-        Description = "Please enter a valid token",
         Name = "Authorization",
         Type = SecuritySchemeType.ApiKey,
         
@@ -35,21 +35,28 @@ builder.Services.AddSwaggerGen(c =>
                 {
                     Type=ReferenceType.SecurityScheme,
                     Id="Bearer"
-                }
+                },
+                Scheme="oauth2",
+                Name="Bearer",
+                In = ParameterLocation.Header,
             },
-            new string[]{}
+            new List<string>()
+           // new string[]{}
         }
     });
 });
 ;
 builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+builder.Services.AddAuthentication(opt => {
+    opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
     .AddJwtBearer(options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters
         {
-            ValidateIssuer = true,
-            ValidateAudience = true, 
+            ValidateIssuer = false,
+            ValidateAudience = false, 
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
             ValidIssuer = builder.Configuration["JwtIssuer"],

@@ -7,6 +7,7 @@ namespace CMS_1.System
         Task<LoginResponse> Authenticate(LoginRequest model);
         Task<ForgotPasswordResponse>  ForgotPassword(FogotPasswordRequest model);
         Task<RecoverPasswordResponse>  RecoverPassword(RecoverPasswordRequest model);
-       
+        void Save(User user);
+
     }
 }

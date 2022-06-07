@@ -6,7 +6,6 @@ namespace CMS_1.Models
     {
         public AppDbContext (DbContextOptions<AppDbContext> options): base(options) { }
 
-
         public DbSet<Barcode> Barcodes { get; set; }
         public DbSet<Campaign> Campaigns { get; set; }
         public DbSet<Charset> Charsets { get; set; }
@@ -21,5 +20,17 @@ namespace CMS_1.Models
         public DbSet<ValueSchedule> ValueSchedules { get; set; }
         public DbSet<Winner> Winners { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.HasIndex(e => e.Email).IsUnique();
+                entity.HasData(
+                    new { Id = 1, Email = "123@gmail.com", Password = "123Aaa" },
+                    new { Id = 2, Email = "abc@gmail.com", Password = "123Qwe" }
+                    );
+            });
+        }
     }
 }

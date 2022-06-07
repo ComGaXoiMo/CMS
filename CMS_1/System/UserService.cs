@@ -10,10 +10,13 @@ namespace CMS_1.System
     public class UserService : IUserService
     {
         private readonly IConfiguration _configuration;
+        //private readonly HttpContext _httpContext;
         private readonly AppDbContext _dbcontext;
 
         public UserService(IConfiguration configuration, AppDbContext appDbContext)
         {
+            //, IHttpContextAccessor httpContextAccessor
+            //   _httpContext = httpContextAccessor.HttpContext;
             _configuration = configuration;
             _dbcontext = appDbContext;
         }
@@ -47,15 +50,16 @@ namespace CMS_1.System
        
         public async Task<ForgotPasswordResponse>  ForgotPassword(FogotPasswordRequest model)
         {
-            var user = _dbcontext.Users;
+            var user = _dbcontext.Users.ToList().SingleOrDefault(x => x.Email == model.Email);
 
-            if (!user.Any(u => u.Email == model.Email))
+            if (user == null)
             {
                 return new ForgotPasswordResponse { Success = false, Message = "Please enter a valid email and try again" };
             }
             var claim = new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, model.Email)
+                    new Claim("ID", user.Id.ToString()),
+                    new Claim("Email", user.Email)
                 };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtSecurityKey"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -96,6 +100,13 @@ namespace CMS_1.System
             }
             
         }
-        
+
+
+        public void Save(User user)
+        {
+            _dbcontext.Update(user);
+            _dbcontext.SaveChanges();
+        }
+
     }
 }
