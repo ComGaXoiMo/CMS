@@ -9,19 +9,17 @@ namespace CMS_1.System
 {
     public class UserService : IUserService
     {
-        private readonly IConfiguration _configuration;
-        //private readonly HttpContext _httpContext;
+        private readonly IConfiguration _configuration;        
         private readonly AppDbContext _dbcontext;
 
         public UserService(IConfiguration configuration, AppDbContext appDbContext)
         {
-            //, IHttpContextAccessor httpContextAccessor
-            //   _httpContext = httpContextAccessor.HttpContext;
             _configuration = configuration;
             _dbcontext = appDbContext;
         }
         public async Task<LoginResponse>  Authenticate(LoginRequest model)
         {
+            
             var user =  _dbcontext.Users;
                 
             if(!user.Any(u => u.Email == model.UserName && u.Password == model.Password))
@@ -102,11 +100,7 @@ namespace CMS_1.System
         }
 
 
-        public void Save(User user)
-        {
-            _dbcontext.Update(user);
-            _dbcontext.SaveChanges();
-        }
+        
 
     }
 }

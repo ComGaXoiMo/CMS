@@ -7,7 +7,7 @@ namespace CMS_1.Models
         public AppDbContext (DbContextOptions<AppDbContext> options): base(options) { }
 
         public DbSet<Barcode> Barcodes { get; set; }
-        public DbSet<Campaign> Campaigns { get; set; }
+        public DbSet<Campaignn> Campaigns { get; set; }
         public DbSet<Charset> Charsets { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Gift> Gifts { get; set; }
@@ -30,6 +30,27 @@ namespace CMS_1.Models
                     new { Id = 1, Email = "123@gmail.com", Password = "123Aaa" },
                     new { Id = 2, Email = "abc@gmail.com", Password = "123Qwe" }
                     );
+            });
+            modelBuilder.Entity<Charset>(entity =>
+            {
+                entity.HasIndex(e => e.Name).IsUnique();
+                entity.HasData(
+                    new { Id = 1, Name = "Numbers"},
+                    new { Id = 2, Name = "Character" }
+                    );
+            });
+            modelBuilder.Entity<ProgramSize>(entity =>
+            {
+                entity.HasIndex(e => e.Name).IsUnique();
+                entity.HasData(
+                    new { Id = 1, Name = "Bulk codes" },
+                    new { Id = 2, Name = "Standalone code" }
+                    );
+            });
+            modelBuilder.Entity<Campaignn>(entity =>
+            {
+                entity.HasIndex(e => e.Name).IsUnique();
+                
             });
         }
     }

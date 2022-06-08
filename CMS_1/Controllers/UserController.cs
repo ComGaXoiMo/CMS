@@ -20,15 +20,14 @@ namespace CMS_1.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginRequest model)
+        public async Task<IActionResult> Login( LoginRequest model)
         {
             var result = await _userService.Authenticate(model);
             return Ok(result);
         }
         [HttpPost]
-        public async Task<IActionResult>  ForgotPassword(FogotPasswordRequest model)
+        public async Task<IActionResult>  ForgotPassword( FogotPasswordRequest model)
         {
-            
             var result = await _userService.ForgotPassword(model);          
             return Ok(result);           
         }
@@ -37,24 +36,25 @@ namespace CMS_1.Controllers
         public async Task<IActionResult> RecoverPassword(RecoverPasswordRequest model)
         {
             var resul = await _userService.RecoverPassword(model);            
-                var value = "";
-                var claims = HttpContext.User.Claims.Where(x => x.Type == "ID");
-                foreach (var claim in claims)
-                {
-                    value = claim.Value; 
-                }
-                var user = _appDbContext.Users.SingleOrDefault(u => u.Id == Convert.ToInt32(value));
+            var value = "";
+            var claims = HttpContext.User.Claims.Where(x => x.Type == "ID");
+            foreach (var claim in claims)
+            {
+                value = claim.Value; 
+            }
+            var user = _appDbContext.Users.SingleOrDefault(u => u.Id == Convert.ToInt32(value));
 
-                if(user != null)
-                {
-                    user.Password = model.Password;
-                    _userService.Save(user);
-                    return Ok(resul);
-                }
-                else
-                {
-                    return BadRequest();
-                }          
+            if(user != null)
+            {
+                user.Password = model.Password;
+                _appDbContext.Update(user);
+                _appDbContext.SaveChanges();
+                return Ok(resul);
+            }
+            else
+            {
+                return BadRequest();
+            }          
         }
     }
 }

@@ -21,7 +21,7 @@ namespace CMS_1.Models
         public GiftCategory GiftCategory { get; set; }
         public int? IdCampaign { get; set; }
         [ForeignKey("IdCampaign")]
-        public Campaign Campaign { get; set; }
+        public Campaignn Campaign { get; set; }
 
         public virtual ICollection<Winner> Winners { get; set; }
     }

@@ -27,6 +27,6 @@ namespace CMS_1.Models
 
         public int? IdCampaign { get; set; }
         [ForeignKey("IdCampaign")]
-        public Campaign Campaign { get; set; }
+        public Campaignn Campaign { get; set; }
     }
 }

@@ -9,16 +9,13 @@ namespace CMS_1.Models
         [Key]
         public int Id { get; set; }
 
-        [Required]
-        [StringLength(30)]
-        public string Name { get; set; }
         public DateTime StartDay { get; set; }
-        public DateTime StartTime { get; set; }
+        public TimeSpan StartTime { get; set; }
         public DateTime EndDay { get; set; }
-        public DateTime EndTime { get; set; }
+        public TimeSpan EndTime { get; set; }
 
         public int? IdCampaign { get; set; }
         [ForeignKey("IdCampaign")]
-        public Campaign Campaign { get; set; }
+        public Campaignn Campaign { get; set; }
     }
 }

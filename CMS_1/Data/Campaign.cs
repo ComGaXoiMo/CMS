@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace CMS_1.Models
 {
     [Table(name: "Campaign")]
-    public class Campaign
+    public class Campaignn
     {
         [Key]
         public int Id { get; set; }

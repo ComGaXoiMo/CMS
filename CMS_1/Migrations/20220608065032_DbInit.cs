@@ -286,6 +286,33 @@ namespace CMS_1.Migrations
                         principalColumn: "Id");
                 });
 
+            migrationBuilder.InsertData(
+                table: "Charset",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Numbers" },
+                    { 2, "Character" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ProgramSize",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Bulk codes" },
+                    { 2, "Standalone code" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "User",
+                columns: new[] { "Id", "Email", "Password" },
+                values: new object[,]
+                {
+                    { 1, "123@gmail.com", "123Aaa" },
+                    { 2, "abc@gmail.com", "123Qwe" }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Barcode_IdCampaign",
                 table: "Barcode",
@@ -302,6 +329,12 @@ namespace CMS_1.Migrations
                 column: "IdProgramSize");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Charset_Name",
+                table: "Charset",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Gift_IdCampaign",
                 table: "Gift",
                 column: "IdCampaign");
@@ -312,6 +345,12 @@ namespace CMS_1.Migrations
                 column: "IdGiftCategory");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ProgramSize_Name",
+                table: "ProgramSize",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_RuleOfGift_IdGiftCategory",
                 table: "RuleOfGift",
                 column: "IdGiftCategory");
@@ -320,6 +359,12 @@ namespace CMS_1.Migrations
                 name: "IX_TimeFrame_IdCampaign",
                 table: "TimeFrame",
                 column: "IdCampaign");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_User_Email",
+                table: "User",
+                column: "Email",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_ValueSchedule_IdRepeat",

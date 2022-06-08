@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CMS_1.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220606082146_DbInit")]
-    partial class DbInit
+    [Migration("20220608085807_updateDb")]
+    partial class updateDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -74,7 +74,7 @@ namespace CMS_1.Migrations
                     b.ToTable("Barcode");
                 });
 
-            modelBuilder.Entity("CMS_1.Models.Campaign", b =>
+            modelBuilder.Entity("CMS_1.Models.Campaignn", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -150,7 +150,22 @@ namespace CMS_1.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique();
+
                     b.ToTable("Charset");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Numbers"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Character"
+                        });
                 });
 
             modelBuilder.Entity("CMS_1.Models.Customer", b =>
@@ -277,7 +292,22 @@ namespace CMS_1.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique();
+
                     b.ToTable("ProgramSize");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Bulk codes"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Standalone code"
+                        });
                 });
 
             modelBuilder.Entity("CMS_1.Models.RepeatSchedule", b =>
@@ -353,22 +383,17 @@ namespace CMS_1.Migrations
                     b.Property<DateTime>("EndDay")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("EndTime")
-                        .HasColumnType("datetime2");
+                    b.Property<TimeSpan>("EndTime")
+                        .HasColumnType("time");
 
                     b.Property<int?>("IdCampaign")
                         .HasColumnType("int");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
                     b.Property<DateTime>("StartDay")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("StartTime")
-                        .HasColumnType("datetime2");
+                    b.Property<TimeSpan>("StartTime")
+                        .HasColumnType("time");
 
                     b.HasKey("Id");
 
@@ -397,7 +422,24 @@ namespace CMS_1.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Email")
+                        .IsUnique();
+
                     b.ToTable("User");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Email = "123@gmail.com",
+                            Password = "123Aaa"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Email = "abc@gmail.com",
+                            Password = "123Qwe"
+                        });
                 });
 
             modelBuilder.Entity("CMS_1.Models.ValueSchedule", b =>
@@ -459,14 +501,14 @@ namespace CMS_1.Migrations
 
             modelBuilder.Entity("CMS_1.Models.Barcode", b =>
                 {
-                    b.HasOne("CMS_1.Models.Campaign", "Campaign")
+                    b.HasOne("CMS_1.Models.Campaignn", "Campaign")
                         .WithMany("Barcodes")
                         .HasForeignKey("IdCampaign");
 
                     b.Navigation("Campaign");
                 });
 
-            modelBuilder.Entity("CMS_1.Models.Campaign", b =>
+            modelBuilder.Entity("CMS_1.Models.Campaignn", b =>
                 {
                     b.HasOne("CMS_1.Models.Charset", "Charset")
                         .WithMany("Campaigns")
@@ -483,7 +525,7 @@ namespace CMS_1.Migrations
 
             modelBuilder.Entity("CMS_1.Models.Gift", b =>
                 {
-                    b.HasOne("CMS_1.Models.Campaign", "Campaign")
+                    b.HasOne("CMS_1.Models.Campaignn", "Campaign")
                         .WithMany("Gifts")
                         .HasForeignKey("IdCampaign");
 
@@ -507,7 +549,7 @@ namespace CMS_1.Migrations
 
             modelBuilder.Entity("CMS_1.Models.TimeFrame", b =>
                 {
-                    b.HasOne("CMS_1.Models.Campaign", "Campaign")
+                    b.HasOne("CMS_1.Models.Campaignn", "Campaign")
                         .WithMany("TimeFrames")
                         .HasForeignKey("IdCampaign");
 
@@ -544,7 +586,7 @@ namespace CMS_1.Migrations
                     b.Navigation("Gift");
                 });
 
-            modelBuilder.Entity("CMS_1.Models.Campaign", b =>
+            modelBuilder.Entity("CMS_1.Models.Campaignn", b =>
                 {
                     b.Navigation("Barcodes");
 

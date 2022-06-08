@@ -4,6 +4,7 @@ using CMS_1.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CMS_1.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220608065032_DbInit")]
+    partial class DbInit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -72,7 +74,7 @@ namespace CMS_1.Migrations
                     b.ToTable("Barcode");
                 });
 
-            modelBuilder.Entity("CMS_1.Models.Campaignn", b =>
+            modelBuilder.Entity("CMS_1.Models.Campaign", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -381,17 +383,22 @@ namespace CMS_1.Migrations
                     b.Property<DateTime>("EndDay")
                         .HasColumnType("datetime2");
 
-                    b.Property<TimeSpan>("EndTime")
-                        .HasColumnType("time");
+                    b.Property<DateTime>("EndTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<int?>("IdCampaign")
                         .HasColumnType("int");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
                     b.Property<DateTime>("StartDay")
                         .HasColumnType("datetime2");
 
-                    b.Property<TimeSpan>("StartTime")
-                        .HasColumnType("time");
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -499,14 +506,14 @@ namespace CMS_1.Migrations
 
             modelBuilder.Entity("CMS_1.Models.Barcode", b =>
                 {
-                    b.HasOne("CMS_1.Models.Campaignn", "Campaign")
+                    b.HasOne("CMS_1.Models.Campaign", "Campaign")
                         .WithMany("Barcodes")
                         .HasForeignKey("IdCampaign");
 
                     b.Navigation("Campaign");
                 });
 
-            modelBuilder.Entity("CMS_1.Models.Campaignn", b =>
+            modelBuilder.Entity("CMS_1.Models.Campaign", b =>
                 {
                     b.HasOne("CMS_1.Models.Charset", "Charset")
                         .WithMany("Campaigns")
@@ -523,7 +530,7 @@ namespace CMS_1.Migrations
 
             modelBuilder.Entity("CMS_1.Models.Gift", b =>
                 {
-                    b.HasOne("CMS_1.Models.Campaignn", "Campaign")
+                    b.HasOne("CMS_1.Models.Campaign", "Campaign")
                         .WithMany("Gifts")
                         .HasForeignKey("IdCampaign");
 
@@ -547,7 +554,7 @@ namespace CMS_1.Migrations
 
             modelBuilder.Entity("CMS_1.Models.TimeFrame", b =>
                 {
-                    b.HasOne("CMS_1.Models.Campaignn", "Campaign")
+                    b.HasOne("CMS_1.Models.Campaign", "Campaign")
                         .WithMany("TimeFrames")
                         .HasForeignKey("IdCampaign");
 
@@ -584,7 +591,7 @@ namespace CMS_1.Migrations
                     b.Navigation("Gift");
                 });
 
-            modelBuilder.Entity("CMS_1.Models.Campaignn", b =>
+            modelBuilder.Entity("CMS_1.Models.Campaign", b =>
                 {
                     b.Navigation("Barcodes");
 
