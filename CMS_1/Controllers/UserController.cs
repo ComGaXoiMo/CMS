@@ -37,18 +37,19 @@ namespace CMS_1.Controllers
         {
             var resul = await _userService.RecoverPassword(model);            
             var value = "";
+
+            // có token mới lấy được dữ liệu từ claim => mới đổi được mật khẩu
             var claims = HttpContext.User.Claims.Where(x => x.Type == "ID");
             foreach (var claim in claims)
             {
                 value = claim.Value; 
             }
-            var user = _appDbContext.Users.SingleOrDefault(u => u.Id == Convert.ToInt32(value));
-
-            if(user != null)
+          
+            var user = await _userService.FindById(Convert.ToInt32(value));
+            if (user != null)
             {
                 user.Password = model.Password;
-                _appDbContext.Update(user);
-                _appDbContext.SaveChanges();
+                _userService.Update(user);
                 return Ok(resul);
             }
             else

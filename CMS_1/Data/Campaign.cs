@@ -22,6 +22,10 @@ namespace CMS_1.Models
         public bool Unlimited { get; set; }
         public int CountCode { get; set; }
         public int CodeLength { get; set; }
+        public DateTime StartDay { get; set; }
+        public TimeSpan StartTime { get; set; }
+        public DateTime EndDay { get; set; }
+        public TimeSpan EndTime { get; set; }
         [Required]
         [StringLength(30)]
         public string Prefix { get; set; }
@@ -37,8 +41,9 @@ namespace CMS_1.Models
         public ProgramSize ProgramSize { get; set; }
 
         public virtual ICollection<Barcode> Barcodes { get; set; }
-        public virtual ICollection<TimeFrame> TimeFrames { get; set; }
+        
         public virtual ICollection<Gift> Gifts { get; set; }
 
+       
     }
 }

@@ -35,8 +35,8 @@ namespace CMS_1.Migrations
 
                     b.Property<string>("BarCode")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Code")
                         .IsRequired()
@@ -59,13 +59,16 @@ namespace CMS_1.Migrations
 
                     b.Property<string>("QRcode")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
-                    b.Property<DateTime>("ScannedDate")
+                    b.Property<DateTime?>("ScannedDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
 
                     b.HasIndex("IdCampaign");
 
@@ -97,6 +100,12 @@ namespace CMS_1.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
+                    b.Property<DateTime>("EndDay")
+                        .HasColumnType("datetime2");
+
+                    b.Property<TimeSpan>("EndTime")
+                        .HasColumnType("time");
+
                     b.Property<int?>("IdCharset")
                         .HasColumnType("int");
 
@@ -121,6 +130,12 @@ namespace CMS_1.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
+                    b.Property<DateTime>("StartDay")
+                        .HasColumnType("datetime2");
+
+                    b.Property<TimeSpan>("StartTime")
+                        .HasColumnType("time");
+
                     b.Property<bool>("Unlimited")
                         .HasColumnType("bit");
 
@@ -129,6 +144,9 @@ namespace CMS_1.Migrations
                     b.HasIndex("IdCharset");
 
                     b.HasIndex("IdProgramSize");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Campaign");
                 });
@@ -163,6 +181,11 @@ namespace CMS_1.Migrations
                         {
                             Id = 2,
                             Name = "Character"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "All"
                         });
                 });
 
@@ -370,36 +393,6 @@ namespace CMS_1.Migrations
                     b.ToTable("RuleOfGift");
                 });
 
-            modelBuilder.Entity("CMS_1.Models.TimeFrame", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("EndDay")
-                        .HasColumnType("datetime2");
-
-                    b.Property<TimeSpan>("EndTime")
-                        .HasColumnType("time");
-
-                    b.Property<int?>("IdCampaign")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("StartDay")
-                        .HasColumnType("datetime2");
-
-                    b.Property<TimeSpan>("StartTime")
-                        .HasColumnType("time");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdCampaign");
-
-                    b.ToTable("TimeFrame");
-                });
-
             modelBuilder.Entity("CMS_1.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -545,15 +538,6 @@ namespace CMS_1.Migrations
                     b.Navigation("GiftCategory");
                 });
 
-            modelBuilder.Entity("CMS_1.Models.TimeFrame", b =>
-                {
-                    b.HasOne("CMS_1.Models.Campaignn", "Campaign")
-                        .WithMany("TimeFrames")
-                        .HasForeignKey("IdCampaign");
-
-                    b.Navigation("Campaign");
-                });
-
             modelBuilder.Entity("CMS_1.Models.ValueSchedule", b =>
                 {
                     b.HasOne("CMS_1.Models.RepeatSchedule", "RepeatSchedule")
@@ -589,8 +573,6 @@ namespace CMS_1.Migrations
                     b.Navigation("Barcodes");
 
                     b.Navigation("Gifts");
-
-                    b.Navigation("TimeFrames");
                 });
 
             modelBuilder.Entity("CMS_1.Models.Charset", b =>

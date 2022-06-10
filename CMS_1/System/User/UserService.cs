@@ -45,7 +45,13 @@ namespace CMS_1.System
             return new LoginResponse {Success = true, Token= new JwtSecurityTokenHandler().WriteToken(token) }; 
 
         }
-       
+
+        public async Task<User> FindById(int id)
+        {
+            var user =  _dbcontext.Users.SingleOrDefault(u => u.Id == id);
+            return user;
+        }
+
         public async Task<ForgotPasswordResponse>  ForgotPassword(FogotPasswordRequest model)
         {
             var user = _dbcontext.Users.ToList().SingleOrDefault(x => x.Email == model.Email);
@@ -99,8 +105,10 @@ namespace CMS_1.System
             
         }
 
-
-        
-
+        public async void Update(User user)
+        {
+            _dbcontext.Update(user);
+            _dbcontext.SaveChanges();
+        }
     }
 }

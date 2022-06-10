@@ -15,7 +15,7 @@ namespace CMS_1.Models
         public DbSet<ProgramSize> ProgramSizes { get; set; }
         public DbSet<RepeatSchedule> RepeatSchedules { get; set; }
         public DbSet<RuleOfGift> RuleOfGifts { get; set; }
-        public DbSet<TimeFrame> TimeFrames { get; set; }
+        
         public DbSet<User> Users { get; set; }
         public DbSet<ValueSchedule> ValueSchedules { get; set; }
         public DbSet<Winner> Winners { get; set; }
@@ -36,7 +36,8 @@ namespace CMS_1.Models
                 entity.HasIndex(e => e.Name).IsUnique();
                 entity.HasData(
                     new { Id = 1, Name = "Numbers"},
-                    new { Id = 2, Name = "Character" }
+                    new { Id = 2, Name = "Character" },
+                    new { Id = 3, Name = "All"}
                     );
             });
             modelBuilder.Entity<ProgramSize>(entity =>
@@ -49,8 +50,11 @@ namespace CMS_1.Models
             });
             modelBuilder.Entity<Campaignn>(entity =>
             {
-                entity.HasIndex(e => e.Name).IsUnique();
-                
+                entity.HasIndex(e => e.Name).IsUnique();    
+            });
+            modelBuilder.Entity<Barcode>(entity =>
+            {
+                entity.HasIndex(e => e.Code).IsUnique();
             });
         }
     }

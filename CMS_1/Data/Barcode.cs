@@ -13,15 +13,15 @@ namespace CMS_1.Models
         [StringLength(30)]
         public string Code { get; set; }
         [Required]
-        [StringLength(30)]
+        [StringLength(100)]
         public string BarCode { get; set; }
         [Required]
-        [StringLength(30)]
+        [StringLength(100)]
         public string QRcode { get; set; }
         public DateTime CreateDate { get; set; }
-        public DateTime ScannedDate { get; set; }
+        public DateTime? ScannedDate { get; set; }
         [StringLength(30)]
-        public string Owner { get; set; }
+        public string? Owner { get; set; }
         public bool IsScanned { get; set; }
         public bool Active { get; set; }
 
