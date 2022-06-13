@@ -1,6 +1,7 @@
 using CMS_1.Models;
 using CMS_1.System;
 using CMS_1.System.Campaign;
+using CMS_1.System.GiftCategories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -48,7 +49,8 @@ builder.Services.AddSwaggerGen(c =>
 });
 ;
 builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<ICampaignService, CampaignService>();
+builder.Services.AddScoped<ICampaignsService, CampaignsService>();
+builder.Services.AddScoped<IGiftCategoriesService, GiftCategoriesService>();
 builder.Services.AddAuthentication(opt => {
     opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;

@@ -18,13 +18,25 @@ namespace CMS_1.Models
         [Required]
         [StringLength(100)]
         public string QRcode { get; set; }
+        public int CodeUsageLimit { get; set; }
+        public bool Unlimited { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime? ScannedDate { get; set; }
         [StringLength(30)]
         public string? Owner { get; set; }
         public bool IsScanned { get; set; }
         public bool Active { get; set; }
-
+        //public int CodeLength { get; set; }
+        //[Required]
+        //[StringLength(30)]
+        //public string Prefix { get; set; }
+        //[Required]
+        //[StringLength(30)]
+        //public string Postfix { get; set; }
+        public int Used { get; set; }
+        public int? IdCharset { get; set; }
+        [ForeignKey("IdCharset")]
+        public Charset Charset { get; set; }
         public int? IdCampaign { get; set; }
         [ForeignKey("IdCampaign")]
         public Campaignn Campaign { get; set; }

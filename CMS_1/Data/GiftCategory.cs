@@ -17,7 +17,8 @@ namespace CMS_1.Models
         public string Decription { get; set; }
         public int Count { get; set; }
         public bool Active { get; set; }
-
+        public DateTime CreateDate { get; set; }
+       // 
         public virtual ICollection<Gift> Gifts { get; set; }
         public virtual ICollection<RuleOfGift> RuleOfGifts { get; set; }
     }

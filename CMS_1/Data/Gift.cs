@@ -15,7 +15,7 @@ namespace CMS_1.Models
         public DateTime CreateDate { get; set; }
         public bool Usage { get; set; }
         public bool Active { get; set; }
-
+        public int Used { get; set; }
         public int? IdGiftCategory { get; set; }
         [ForeignKey("IdGiftCategory")]
         public GiftCategory GiftCategory { get; set; }

@@ -56,6 +56,10 @@ namespace CMS_1.Models
             {
                 entity.HasIndex(e => e.Code).IsUnique();
             });
+            modelBuilder.Entity<GiftCategory>(entity =>
+            {
+                entity.HasIndex(e => e.Name).IsUnique();
+            });
         }
     }
 }

@@ -1,0 +1,222 @@
+﻿++Solution 'CMS_1' ‎(1 of 1 project)
+i:{00000000-0000-0000-0000-000000000000}:CMS_1.sln
+++CMS_1
+i:{00000000-0000-0000-0000-000000000000}:CMS_1
+++Connected Services 
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:>375
+++Dependencies
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:>374
+++Properties
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\properties\
+++Controllers
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\controllers\
+++CampaignController.cs
+++UserController.cs
+++Data
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\data\
+++AppDbContext.cs
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\data\appdbcontext.cs
+++Barcode.cs
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\data\barcode.cs
+++Campaign.cs
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\data\campaign.cs
+++Charset.cs
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\data\charset.cs
+++Customer.cs
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\data\customer.cs
+++Gift.cs
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\data\gift.cs
+++GiftCategory.cs
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\data\giftcategory.cs
+++ProgramSize.cs
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\data\programsize.cs
+++RepeatSchedule.cs
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\data\repeatschedule.cs
+++RuleOfGift.cs
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\data\ruleofgift.cs
+++User.cs
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\data\user.cs
+++ValueSchedule.cs
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\data\valueschedule.cs
+++Winner.cs
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\data\winner.cs
+++Images
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\images\
+++Barcode
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\images\barcode\
+++Barcode_aaaaac2VBC.png
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\images\barcode\barcode_aaaaac2vbc.png
+++Barcode_aaaaacKI1N.png
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\images\barcode\barcode_aaaaacki1n.png
+++Barcode_stringOAJF.png
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\images\barcode\barcode_stringoajf.png
+++Barcode_stringSZFQ.png
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\images\barcode\barcode_stringszfq.png
+++Barcode_stringUUGRS.png
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\images\barcode\barcode_stringuugrs.png
+++QRcode
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\images\qrcode\
+++Migrations
+++Models
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\models\
+++Authentication
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\models\authentication\
+++Campaign
+++BarcodeVM.cs
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\models\campaigns\barcodevm.cs
+++CampaignMV.cs
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\models\campaigns\campaignmv.cs
+++CreateBarcodeByCampaign.cs
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\models\campaigns\createbarcodebycampaign.cs
+++CreateCampaignRequest.cs
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\models\campaigns\createcampaignrequest.cs
+++CreateCampaignResponse.cs
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\models\campaigns\createcampaignresponse.cs
+++GenerateNewBarcodeReqsponse.cs
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\models\campaigns\generatenewbarcodereqsponse.cs
+++GenerateNewBarcodeRequest.cs
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\models\campaigns\generatenewbarcoderequest.cs
+++IsActiveBarcodeResponse.cs
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\models\campaigns\isactivebarcoderesponse.cs
+++ScanBarcodeResponse.cs
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\models\campaigns\scanbarcoderesponse.cs
+++TimeFrameMV.cs
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\models\campaigns\timeframemv.cs
+++System
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\system\
+++CampaignService.cs
+++ICampaignService.cs
+++User
+++IUserService.cs
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\system\users\iuserservice.cs
+++UserService.cs
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\system\users\userservice.cs
+++appsettings.json
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\appsettings.json
+++Program.cs
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\program.cs
+++No service dependencies discovered
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:>376
+++Analyzers
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:analyzers
+++Frameworks
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:frameworks
+++Packages
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:packages
+++launchSettings.json
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\properties\launchsettings.json
+++QRcode_aaaaac2VBC.png
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\images\qrcode\qrcode_aaaaac2vbc.png
+++QRcode_aaaaacKI1N.png
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\images\qrcode\qrcode_aaaaacki1n.png
+++QRcode_stringOAJF.png
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\images\qrcode\qrcode_stringoajf.png
+++QRcode_stringSZFQ.png
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\images\qrcode\qrcode_stringszfq.png
+++QRcode_stringUUGRS.png
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\images\qrcode\qrcode_stringuugrs.png
+++20220608065032_DbInit.cs
+++20220608085807_updateDb.cs
+++20220609062606_editTImeFrame.cs
+++20220610095208_editBarcode.cs
+++20220611070913_editdatabase.cs
+++20220612065133_editDB2.cs
+++AppDbContextModelSnapshot.cs
+++FogotPasswordRequest.cs
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\models\authentication\fogotpasswordrequest.cs
+++ForgotPasswordResponse.cs
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\models\authentication\forgotpasswordresponse.cs
+++LoginRequest.cs
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\models\authentication\loginrequest.cs
+++LoginResponse.cs
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\models\authentication\loginresponse.cs
+++RecoverPasswordRequest.cs
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\models\authentication\recoverpasswordrequest.cs
+++RecoverPasswordResponse.cs
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\models\authentication\recoverpasswordresponse.cs
+++appsettings.Development.json
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\appsettings.development.json
+++Microsoft.AspNetCore.Analyzers
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\program files\dotnet\sdk\6.0.202\sdks\microsoft.net.sdk.web\analyzers\cs\microsoft.aspnetcore.analyzers.dll
+++Microsoft.AspNetCore.App.Analyzers
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\program files\dotnet\packs\microsoft.aspnetcore.app.ref\6.0.4\analyzers\dotnet\cs\microsoft.aspnetcore.app.analyzers.dll
+++Microsoft.AspNetCore.App.CodeFixes
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\program files\dotnet\packs\microsoft.aspnetcore.app.ref\6.0.4\analyzers\dotnet\cs\microsoft.aspnetcore.app.codefixes.dll
+++Microsoft.AspNetCore.Components.Analyzers
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\program files\dotnet\sdk\6.0.202\sdks\microsoft.net.sdk.web\analyzers\cs\microsoft.aspnetcore.components.analyzers.dll
+++Microsoft.AspNetCore.Mvc.Analyzers
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\program files\dotnet\sdk\6.0.202\sdks\microsoft.net.sdk.web\analyzers\cs\microsoft.aspnetcore.mvc.analyzers.dll
+++Microsoft.AspNetCore.Razor.SourceGenerator.Tooling.Internal
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\program files\dotnet\sdk\6.0.202\sdks\microsoft.net.sdk.razor\source-generators\microsoft.aspnetcore.razor.sourcegenerator.tooling.internal.dll
+++Microsoft.CodeAnalysis.CSharp.NetAnalyzers
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\program files\dotnet\sdk\6.0.202\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+++Microsoft.CodeAnalysis.NetAnalyzers
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\program files\dotnet\sdk\6.0.202\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+++Microsoft.EntityFrameworkCore.Analyzers
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\.nuget\packages\microsoft.entityframeworkcore.analyzers\6.0.4\analyzers\dotnet\cs\microsoft.entityframeworkcore.analyzers.dll
+++Microsoft.Extensions.Logging.Generators
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\program files\dotnet\packs\microsoft.aspnetcore.app.ref\6.0.4\analyzers\dotnet\roslyn4.0\cs\microsoft.extensions.logging.generators.dll
+++Microsoft.NET.Sdk.Razor.SourceGenerators
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\program files\dotnet\sdk\6.0.202\sdks\microsoft.net.sdk.razor\source-generators\microsoft.net.sdk.razor.sourcegenerators.dll
+++System.Text.Json.SourceGeneration
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.4\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
+++Microsoft.AspNetCore.App
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\microsoft.aspnetcore.app
+++Microsoft.NETCore.App
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\microsoft.netcore.app
+++BarcodeLib (2.4.0)
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:>404
+++Microsoft.AspNetCore.Authentication.JwtBearer (5.0.6)
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:>400
+++Microsoft.EntityFrameworkCore.SqlServer (6.0.4)
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:>395
+++Microsoft.EntityFrameworkCore.Tools (6.0.4)
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:>402
+++Microsoft.Extensions.Configuration (6.0.1)
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:>401
+++QRCoder (1.3.3)
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:>394
+++SkiaSharp (2.88.0)
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:>398
+++Swashbuckle.AspNetCore (6.2.3)
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:>396
+++Swashbuckle.AspNetCore.SwaggerGen (6.3.1)
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:>397
+++Swashbuckle.AspNetCore.SwaggerUI (6.3.1)
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:>403
+++System.Configuration.ConfigurationManager (6.0.0)
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:>399
+++20220608065032_DbInit.Designer.cs
+++20220608085807_updateDb.Designer.cs
+++20220609062606_editTImeFrame.Designer.cs
+++20220610095208_editBarcode.Designer.cs
+++20220611070913_editdatabase.Designer.cs
+++20220612065133_editDB2.Designer.cs
+++NewFolder
+++GiftCategoris
+++Campaigns
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\models\campaigns\
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\system\campaigns\
+++GiftCategories
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\models\giftcategories\
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\system\giftcategories\
+++GiftCategoriesController.cs
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\controllers\giftcategoriescontroller.cs
+++CampaignsController.cs
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\controllers\campaignscontroller.cs
+++UsersController.cs
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\controllers\userscontroller.cs
+++Users
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\system\users\
+++CampaignsService.cs
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\system\campaigns\campaignsservice.cs
+++ICampaignsService.cs
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\system\campaigns\icampaignsservice.cs
+++GiftCategoriesService.cs
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\system\giftcategories\giftcategoriesservice.cs
+++IGiftCategoriesService.cs
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\system\giftcategories\igiftcategoriesservice.cs
+++CreateGiftCategoriesResponse.cs
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\models\giftcategories\creategiftcategoriesresponse.cs
+++CreateGiftCategoriesResquest.cs
+i:{4da77130-fff9-4cb2-8235-75ae648ab7d5}:c:\users\viet\desktop\thuctap\cms_1\cms_1\models\giftcategories\creategiftcategoriesresquest.cs
