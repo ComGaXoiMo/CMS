@@ -36,14 +36,14 @@ namespace CMS_1.Controllers
 
             return Ok(resul);
         }
-        //[HttpPut("{id}")]
-        ////[Authorize]
-        //public async Task<IActionResult> ChangeStatusByID(bool status, int id)
-        //{
-        //    var resul = await _giftCategoriesService.ChangeStatusGiftCategory(id, status);
+        [HttpPut("{id}")]
+        //[Authorize]
+        public async Task<IActionResult> ChangeStatusByID(bool status, int id)
+        {
+            var resul = await _giftCategoriesService.ChangeStatusGiftCategory(id, status);
 
-        //    return Ok(resul);
-        //}
+            return Ok(resul);
+        }
         [HttpPut("{id}")]
         //[Authorize]
         public async Task<IActionResult> Edit(GiftCategoriesResquest model, int id)

@@ -51,6 +51,7 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ICampaignsService, CampaignsService>();
 builder.Services.AddScoped<IGiftCategoriesService, GiftCategoriesService>();
+//builder.Services.AddScoped<IGifts, CMS_1.System.Gifts>();
 builder.Services.AddAuthentication(opt => {
     opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;

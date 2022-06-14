@@ -1,5 +1,6 @@
 ﻿using CMS_1.Models;
 using CMS_1.Models.Campaign;
+using CMS_1.Models.Campaigns;
 using CMS_1.System.Campaign;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -61,6 +62,20 @@ namespace CMS_1.Controllers
         public async Task<IActionResult> ScanBarcodeForCustomer(int id, string owner)
         {
             var resul = await _campaignService.ScanBarcodeForCustomer(id, owner);
+            return Ok(resul);
+        }
+        [HttpGet("{id}")]
+        //  [authorize]
+        public async Task<IActionResult> GetAllGiftsOfCampaign(int id)
+        {
+            var resul = _campaignService.GetAllGiftOfCampaign(id);
+            return Ok(resul);
+        }
+        [HttpPost]
+        //  [authorize]
+        public async Task<IActionResult> GenerateNewGifts(CreateGiftRequest model)
+        {
+            var resul = await _campaignService.CreateNewGifts(model);
             return Ok(resul);
         }
     }

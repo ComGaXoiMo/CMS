@@ -13,7 +13,7 @@ namespace CMS_1.Models
         [StringLength(30)]
         public string GiftCode { get; set; }
         public DateTime CreateDate { get; set; }
-        public bool Usage { get; set; }
+        public int UsageLimit { get; set; }
         public bool Active { get; set; }
         public int Used { get; set; }
         public int? IdGiftCategory { get; set; }

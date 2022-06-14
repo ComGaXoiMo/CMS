@@ -50,6 +50,7 @@ namespace CMS_1.System.GiftCategories
                 var giftcate = _appDbContext.GiftCategories.SingleOrDefault(x => x.Id == id);
                 giftcate.Name = model.Name;
                 giftcate.Decription = model.Description;
+                giftcate.Active = model.Active;
                 _appDbContext.Update(giftcate);
                 _appDbContext.SaveChanges();
                 return new GiftCategoriesResponse { success = true, Message = "The Gift "+model.Name+" information is updated" };
