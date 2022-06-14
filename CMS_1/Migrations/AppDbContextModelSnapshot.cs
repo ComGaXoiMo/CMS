@@ -99,9 +99,6 @@ namespace CMS_1.Migrations
                     b.Property<bool>("AutoUpdate")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("CharsetId")
-                        .HasColumnType("int");
-
                     b.Property<int>("CountCode")
                         .HasColumnType("int");
 
@@ -134,8 +131,6 @@ namespace CMS_1.Migrations
                         .HasColumnType("time");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CharsetId");
 
                     b.HasIndex("IdProgramSize");
 
@@ -375,6 +370,9 @@ namespace CMS_1.Migrations
                     b.Property<int?>("IdGiftCategory")
                         .HasColumnType("int");
 
+                    b.Property<int?>("IdIdRepeatSchedule")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(30)
@@ -386,12 +384,18 @@ namespace CMS_1.Migrations
                     b.Property<int>("Probability")
                         .HasColumnType("int");
 
+                    b.Property<string>("ScheduleData")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
                     b.HasIndex("IdGiftCategory");
+
+                    b.HasIndex("IdIdRepeatSchedule");
 
                     b.ToTable("RuleOfGift");
                 });
@@ -436,34 +440,6 @@ namespace CMS_1.Migrations
                         });
                 });
 
-            modelBuilder.Entity("CMS_1.Models.ValueSchedule", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int?>("IdRepeat")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("IdRule")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Value")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdRepeat");
-
-                    b.HasIndex("IdRule");
-
-                    b.ToTable("ValueSchedule");
-                });
-
             modelBuilder.Entity("CMS_1.Models.Winner", b =>
                 {
                     b.Property<int>("Id")
@@ -500,7 +476,7 @@ namespace CMS_1.Migrations
                         .HasForeignKey("IdCampaign");
 
                     b.HasOne("CMS_1.Models.Charset", "Charset")
-                        .WithMany()
+                        .WithMany("Barcodes")
                         .HasForeignKey("IdCharset");
 
                     b.Navigation("Campaign");
@@ -510,10 +486,6 @@ namespace CMS_1.Migrations
 
             modelBuilder.Entity("CMS_1.Models.Campaignn", b =>
                 {
-                    b.HasOne("CMS_1.Models.Charset", null)
-                        .WithMany("Campaigns")
-                        .HasForeignKey("CharsetId");
-
                     b.HasOne("CMS_1.Models.ProgramSize", "ProgramSize")
                         .WithMany("Campaigns")
                         .HasForeignKey("IdProgramSize");
@@ -542,22 +514,13 @@ namespace CMS_1.Migrations
                         .WithMany("RuleOfGifts")
                         .HasForeignKey("IdGiftCategory");
 
+                    b.HasOne("CMS_1.Models.RepeatSchedule", "repeatSchedule")
+                        .WithMany("RuleOfGifts")
+                        .HasForeignKey("IdIdRepeatSchedule");
+
                     b.Navigation("GiftCategory");
-                });
 
-            modelBuilder.Entity("CMS_1.Models.ValueSchedule", b =>
-                {
-                    b.HasOne("CMS_1.Models.RepeatSchedule", "RepeatSchedule")
-                        .WithMany("ValueSchedules")
-                        .HasForeignKey("IdRepeat");
-
-                    b.HasOne("CMS_1.Models.RuleOfGift", "RuleOfGift")
-                        .WithMany("ValueSchedules")
-                        .HasForeignKey("IdRule");
-
-                    b.Navigation("RepeatSchedule");
-
-                    b.Navigation("RuleOfGift");
+                    b.Navigation("repeatSchedule");
                 });
 
             modelBuilder.Entity("CMS_1.Models.Winner", b =>
@@ -584,7 +547,7 @@ namespace CMS_1.Migrations
 
             modelBuilder.Entity("CMS_1.Models.Charset", b =>
                 {
-                    b.Navigation("Campaigns");
+                    b.Navigation("Barcodes");
                 });
 
             modelBuilder.Entity("CMS_1.Models.Customer", b =>
@@ -611,12 +574,7 @@ namespace CMS_1.Migrations
 
             modelBuilder.Entity("CMS_1.Models.RepeatSchedule", b =>
                 {
-                    b.Navigation("ValueSchedules");
-                });
-
-            modelBuilder.Entity("CMS_1.Models.RuleOfGift", b =>
-                {
-                    b.Navigation("ValueSchedules");
+                    b.Navigation("RuleOfGifts");
                 });
 #pragma warning restore 612, 618
         }

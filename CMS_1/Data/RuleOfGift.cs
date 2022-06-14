@@ -17,6 +17,7 @@ namespace CMS_1.Models
         public DateTime EndTime { get; set; }
         public bool AllDay { get; set; }
         public int Probability { get; set; }
+        public string ScheduleData { get; set; }
         public bool Active { get; set; }
         public int Priority { get; set; }
 
@@ -24,8 +25,9 @@ namespace CMS_1.Models
         [ForeignKey("IdGiftCategory")]
         public GiftCategory GiftCategory { get; set; }
 
-
-        public virtual ICollection<ValueSchedule> ValueSchedules { get; set; }
+        public int? IdIdRepeatSchedule { get; set; }
+        [ForeignKey("IdIdRepeatSchedule")]
+        public RepeatSchedule repeatSchedule { get; set; }
 
     }
 }

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CMS_1.Migrations
 {
-    public partial class BbInit : Migration
+    public partial class Dbinit : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -100,32 +100,6 @@ namespace CMS_1.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "RuleOfGift",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
-                    GiftCount = table.Column<int>(type: "int", nullable: false),
-                    StartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    AllDay = table.Column<bool>(type: "bit", nullable: false),
-                    Probability = table.Column<int>(type: "int", nullable: false),
-                    Active = table.Column<bool>(type: "bit", nullable: false),
-                    Priority = table.Column<int>(type: "int", nullable: false),
-                    IdGiftCategory = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RuleOfGift", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_RuleOfGift_GiftCategory_IdGiftCategory",
-                        column: x => x.IdGiftCategory,
-                        principalTable: "GiftCategory",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Campaign",
                 columns: table => new
                 {
@@ -140,17 +114,11 @@ namespace CMS_1.Migrations
                     StartTime = table.Column<TimeSpan>(type: "time", nullable: false),
                     EndDay = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndTime = table.Column<TimeSpan>(type: "time", nullable: false),
-                    IdProgramSize = table.Column<int>(type: "int", nullable: true),
-                    CharsetId = table.Column<int>(type: "int", nullable: true)
+                    IdProgramSize = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Campaign", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Campaign_Charset_CharsetId",
-                        column: x => x.CharsetId,
-                        principalTable: "Charset",
-                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Campaign_ProgramSize_IdProgramSize",
                         column: x => x.IdProgramSize,
@@ -159,27 +127,35 @@ namespace CMS_1.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ValueSchedule",
+                name: "RuleOfGift",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Value = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
-                    IdRepeat = table.Column<int>(type: "int", nullable: true),
-                    IdRule = table.Column<int>(type: "int", nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    GiftCount = table.Column<int>(type: "int", nullable: false),
+                    StartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    AllDay = table.Column<bool>(type: "bit", nullable: false),
+                    Probability = table.Column<int>(type: "int", nullable: false),
+                    ScheduleData = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Active = table.Column<bool>(type: "bit", nullable: false),
+                    Priority = table.Column<int>(type: "int", nullable: false),
+                    IdGiftCategory = table.Column<int>(type: "int", nullable: true),
+                    IdIdRepeatSchedule = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ValueSchedule", x => x.Id);
+                    table.PrimaryKey("PK_RuleOfGift", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ValueSchedule_RepeatSchedule_IdRepeat",
-                        column: x => x.IdRepeat,
-                        principalTable: "RepeatSchedule",
+                        name: "FK_RuleOfGift_GiftCategory_IdGiftCategory",
+                        column: x => x.IdGiftCategory,
+                        principalTable: "GiftCategory",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_ValueSchedule_RuleOfGift_IdRule",
-                        column: x => x.IdRule,
-                        principalTable: "RuleOfGift",
+                        name: "FK_RuleOfGift_RepeatSchedule_IdIdRepeatSchedule",
+                        column: x => x.IdIdRepeatSchedule,
+                        principalTable: "RepeatSchedule",
                         principalColumn: "Id");
                 });
 
@@ -226,7 +202,7 @@ namespace CMS_1.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     GiftCode = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Usage = table.Column<bool>(type: "bit", nullable: false),
+                    UsageLimit = table.Column<int>(type: "int", nullable: false),
                     Active = table.Column<bool>(type: "bit", nullable: false),
                     Used = table.Column<int>(type: "int", nullable: false),
                     IdGiftCategory = table.Column<int>(type: "int", nullable: true),
@@ -318,11 +294,6 @@ namespace CMS_1.Migrations
                 column: "IdCharset");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Campaign_CharsetId",
-                table: "Campaign",
-                column: "CharsetId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Campaign_IdProgramSize",
                 table: "Campaign",
                 column: "IdProgramSize");
@@ -350,6 +321,12 @@ namespace CMS_1.Migrations
                 column: "IdGiftCategory");
 
             migrationBuilder.CreateIndex(
+                name: "IX_GiftCategory_Name",
+                table: "GiftCategory",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ProgramSize_Name",
                 table: "ProgramSize",
                 column: "Name",
@@ -361,20 +338,15 @@ namespace CMS_1.Migrations
                 column: "IdGiftCategory");
 
             migrationBuilder.CreateIndex(
+                name: "IX_RuleOfGift_IdIdRepeatSchedule",
+                table: "RuleOfGift",
+                column: "IdIdRepeatSchedule");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_User_Email",
                 table: "User",
                 column: "Email",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ValueSchedule_IdRepeat",
-                table: "ValueSchedule",
-                column: "IdRepeat");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ValueSchedule_IdRule",
-                table: "ValueSchedule",
-                column: "IdRule");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Winner_IdCustomer",
@@ -393,19 +365,19 @@ namespace CMS_1.Migrations
                 name: "Barcode");
 
             migrationBuilder.DropTable(
-                name: "User");
+                name: "RuleOfGift");
 
             migrationBuilder.DropTable(
-                name: "ValueSchedule");
+                name: "User");
 
             migrationBuilder.DropTable(
                 name: "Winner");
 
             migrationBuilder.DropTable(
-                name: "RepeatSchedule");
+                name: "Charset");
 
             migrationBuilder.DropTable(
-                name: "RuleOfGift");
+                name: "RepeatSchedule");
 
             migrationBuilder.DropTable(
                 name: "Customer");
@@ -418,9 +390,6 @@ namespace CMS_1.Migrations
 
             migrationBuilder.DropTable(
                 name: "GiftCategory");
-
-            migrationBuilder.DropTable(
-                name: "Charset");
 
             migrationBuilder.DropTable(
                 name: "ProgramSize");

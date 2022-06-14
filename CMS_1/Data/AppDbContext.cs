@@ -17,7 +17,7 @@ namespace CMS_1.Models
         public DbSet<RuleOfGift> RuleOfGifts { get; set; }
         
         public DbSet<User> Users { get; set; }
-        public DbSet<ValueSchedule> ValueSchedules { get; set; }
+      //  public DbSet<ValueSchedule> ValueSchedules { get; set; }
         public DbSet<Winner> Winners { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -48,9 +48,23 @@ namespace CMS_1.Models
                     new { Id = 2, Name = "Standalone code" }
                     );
             });
+            modelBuilder.Entity<RepeatSchedule>(entity =>
+            {
+                entity.HasIndex(e => e.Name).IsUnique();
+                entity.HasData(
+                    new { Id = 1, Name = "Monthly on day" },
+                    new { Id = 2, Name = "Weekly on" },
+                    new { Id = 3, Name = "Repeat daily" }
+                    );
+            });
             modelBuilder.Entity<Campaignn>(entity =>
             {
                 entity.HasIndex(e => e.Name).IsUnique();    
+            });
+            modelBuilder.Entity<RuleOfGift>(entity =>
+            {
+                entity.HasIndex(e => e.Name).IsUnique();
+                entity.HasIndex(e => e.Priority).IsUnique();
             });
             modelBuilder.Entity<Barcode>(entity =>
             {

@@ -13,6 +13,9 @@ namespace CMS_1.System.Campaign
         ICollection<BarcodeVM> GetAllBarcodesOfCampaign(int id);
         Task<ScanBarcodeResponse> ScanBarcodeForCustomer(int id, string owner);
         ICollection<GiftCampaignMV> GetAllGiftOfCampaign(int id);
-        Task<CreateGiftResponse> CreateNewGifts(CreateGiftRequest model);
+        ICollection<RuleOfGiftVM> GetAllRuleOfGiftInCampaign();
+        Task<RuleOfGiftResponse> CreateNewRuleOfGift(RuleOfGiftRequest model);
+        Task<RuleOfGiftResponse> EditRuleOfGift(RuleOfGiftRequest model, int id);
+        Task<RuleOfGiftResponse> ActiveRuleOfGift(bool status, int id);
     }
 }

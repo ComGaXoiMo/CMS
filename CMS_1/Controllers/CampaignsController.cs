@@ -2,6 +2,7 @@
 using CMS_1.Models.Campaign;
 using CMS_1.Models.Campaigns;
 using CMS_1.System.Campaign;
+using CMS_1.System.Gifts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,11 +16,13 @@ namespace CMS_1.Controllers
     {
         private readonly AppDbContext _appDbContext;
         private readonly ICampaignsService _campaignService;
+        private readonly IGiftsService _giftsService;
 
-        public CampaignsController(ICampaignsService campaignService, AppDbContext appDbContext )
+        public CampaignsController(ICampaignsService campaignService, AppDbContext appDbContext, IGiftsService giftsService )
         {
             _appDbContext = appDbContext;
             _campaignService = campaignService;
+            _giftsService = giftsService;
         }
         [HttpGet]
        // [Authorize]
@@ -75,7 +78,14 @@ namespace CMS_1.Controllers
         //  [authorize]
         public async Task<IActionResult> GenerateNewGifts(CreateGiftRequest model)
         {
-            var resul = await _campaignService.CreateNewGifts(model);
+            var resul = await _giftsService.CreateNewGifts(model);
+            return Ok(resul);
+        }
+        [HttpGet]
+        //  [authorize]
+        public async Task<IActionResult> GetAllRuleOfGift()
+        {
+            var resul = _campaignService.GetAllRuleOfGiftInCampaign();
             return Ok(resul);
         }
     }

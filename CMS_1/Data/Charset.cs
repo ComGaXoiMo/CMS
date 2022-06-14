@@ -13,6 +13,6 @@ namespace CMS_1.Models
         [StringLength(30)]
         public string Name { get; set; }
 
-        public virtual ICollection<Campaignn> Campaigns { get; set; }
+        public virtual ICollection<Barcode> Barcodes { get; set; }
     }
 }

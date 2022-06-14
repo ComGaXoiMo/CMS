@@ -12,7 +12,7 @@ namespace CMS_1.Models
         [StringLength(30)]
         public string Name { get; set; }
 
-        public virtual ICollection<ValueSchedule> ValueSchedules { get; set; }
+        public virtual ICollection<RuleOfGift> RuleOfGifts { get; set; }
 
     }
 }

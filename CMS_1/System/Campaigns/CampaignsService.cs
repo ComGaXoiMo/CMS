@@ -118,33 +118,7 @@ namespace CMS_1.System.Campaign
             _appDbContext.Add(barcode);
             _appDbContext.SaveChanges();
         }
-        public void AutoCreateGifts(CreateGiftRequest model)
-        {
-            var giftstrings = new char[10];
-            var random = new Random();
-            var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789";
-
-
-            for (int i = 0; i < giftstrings.Length; i++)
-            {
-                giftstrings[i] = characters[random.Next(characters.Length)];
-            }
-            string str = new string(giftstrings);
-            string finalgift = new string("GIF" + str);
-
-            var gift = new Gift
-            {
-                GiftCode = finalgift,
-                CreateDate = DateTime.Now,
-                UsageLimit = model.UseLimit,
-                Active = true,
-                Used = 0,
-                IdGiftCategory = model.IdGiftCategoty,
-                IdCampaign = model.IdCampaign
-            };
-            _appDbContext.Add(gift);
-            _appDbContext.SaveChanges();
-        }
+        
         public void CreateBarcodeAndQRcode(string character)
         {
             BarcodeLib.Barcode bc = new BarcodeLib.Barcode();
@@ -191,7 +165,7 @@ namespace CMS_1.System.Campaign
             try
             {
                 var campaign = _appDbContext.Campaigns.SingleOrDefault(x => x.Id == model.IdCampaign);
-                campaign.CountCode = campaign.CountCode + model.CountCode;
+                campaign.CountCode = _appDbContext.Barcodes.Count(x=>x.IdCampaign==campaign.Id)+ model.CountCode;
                 _appDbContext.Update(campaign);
                 _appDbContext.SaveChanges();
                 for (int i = 0; i < model.CountCode; i++)
@@ -299,25 +273,107 @@ namespace CMS_1.System.Campaign
             return listgift;
         }
 
-        public async Task<CreateGiftResponse> CreateNewGifts(CreateGiftRequest model)
+        public ICollection<RuleOfGiftVM> GetAllRuleOfGiftInCampaign()
+        {
+            var allrule = _appDbContext.RuleOfGifts.ToList();
+            var listruleVM = new List<RuleOfGiftVM>();
+            foreach (var rule in allrule)
+            {
+                var rs = _appDbContext.RepeatSchedules.SingleOrDefault(x=>x.Id==rule.IdIdRepeatSchedule);
+                var gc = _appDbContext.GiftCategories.SingleOrDefault(x => x.Id == rule.IdGiftCategory);
+                RuleOfGiftVM rol = new RuleOfGiftVM
+                {
+                    RuleName = rule.Name,
+                    GiftName = gc.Name,
+                    Schedule = rs.Name + rule.ScheduleData,
+                    StartTime = rule.StartTime,
+                    EndTime =rule.EndTime,
+                    AllDay = rule.AllDay,
+                    TotalGift = rule.GiftCount,
+                    Probability = rule.Probability,
+                    Active = rule.Active,
+                    Priority = rule.Priority,
+                };
+                listruleVM.Add(rol);
+            }
+            return listruleVM;
+        }
+
+        public async Task<RuleOfGiftResponse> CreateNewRuleOfGift(RuleOfGiftRequest model)
         {
             try
             {
-
-                for (int i = 0; i < model.Giftcount; i++)
+                var ruleofgift = new RuleOfGift
                 {
-                    AutoCreateGifts(model);
-                }
-                return new CreateGiftResponse { Success = true, Message = "Generated "+model.Giftcount+" Gift Codes successfully." };
+                    Name = model.RuleName,
+                    GiftCount = model.GiftCount,
+                    StartTime = model.StartTime,
+                    EndTime = model.EndTime,
+                    AllDay = model.AllDay,
+                    Probability = model.Probability,
+                    ScheduleData = model.ScheduleData,
+                    Active = true,
+                    Priority = _appDbContext.RuleOfGifts.Max(x => x.Priority) + 1,
+                    IdGiftCategory = model.IdGiftCategory,
+                    IdIdRepeatSchedule = model.IdRepeatSchedule
+                };
+                _appDbContext.Add(ruleofgift);
+                _appDbContext.SaveChanges();
+                return new RuleOfGiftResponse { Success = true, Message = "Create Rule for Gifts successful." };
             }
             catch
             {
-                return new CreateGiftResponse { Success = false, Message = "Error" };
-
+                return new RuleOfGiftResponse { Success = false, Message = "Error." };
+            }
+        }
+        public async Task<RuleOfGiftResponse> EditRuleOfGift(RuleOfGiftRequest model, int id)
+        {
+            try
+            {
+                var rog = _appDbContext.RuleOfGifts.SingleOrDefault(x => x.Id == id);
+                rog.Name = model.RuleName;
+                rog.GiftCount = model.GiftCount;
+                rog.StartTime = model.StartTime;
+                rog.EndTime = model.EndTime;
+                rog.AllDay = model.AllDay;
+                rog.Probability = model.Probability;
+                rog.ScheduleData = model.ScheduleData;
+                rog.IdGiftCategory = model.IdGiftCategory;
+                rog.IdIdRepeatSchedule = model.IdRepeatSchedule;
+                
+                _appDbContext.Update(rog);
+                _appDbContext.SaveChanges();
+                return new RuleOfGiftResponse { Success = true, Message = "Rule for Gifts has been updated." };
+            }
+            catch
+            {
+                return new RuleOfGiftResponse { Success = false, Message = "Error." };
             }
         }
 
-        
+        public async Task<RuleOfGiftResponse> ActiveRuleOfGift(bool status, int id)
+        {
+            try
+            {
+                var rog = _appDbContext.RuleOfGifts.SingleOrDefault(x=>x.Id== id);
+                rog.Active = status;
+                _appDbContext.Update(rog);
+                _appDbContext.SaveChanges();
+                if (rog.Active == true)
+                {
+                    return new RuleOfGiftResponse { Success = true, Message = "The rule "+rog.Name+" is Activated" };
+                }
+                else
+                {
+                    return new RuleOfGiftResponse { Success = true, Message = "The rule "+rog.Name+" is De-activated" };
+                }
+            }
+                
+            catch
+            {
+                return new RuleOfGiftResponse { Success = false, Message = "Error." };
+            }
+        }
     }
 }
     
