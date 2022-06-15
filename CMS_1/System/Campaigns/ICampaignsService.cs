@@ -17,5 +17,8 @@ namespace CMS_1.System.Campaign
         Task<RuleOfGiftResponse> CreateNewRuleOfGift(RuleOfGiftRequest model);
         Task<RuleOfGiftResponse> EditRuleOfGift(RuleOfGiftRequest model, int id);
         Task<RuleOfGiftResponse> ActiveRuleOfGift(bool status, int id);
+        Task<RuleOfGiftResponse> RaiseThePriorityOfTheRule(int id);
+        Task<RuleOfGiftResponse> ReduceThePriorityOfTheRule(int id);
+        Task<RuleOfGiftResponse> DeleteRuleOfGift(int id);
     }
 }

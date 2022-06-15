@@ -88,5 +88,41 @@ namespace CMS_1.Controllers
             var resul = _campaignService.GetAllRuleOfGiftInCampaign();
             return Ok(resul);
         }
+        [HttpPost]
+        //  [authorize]
+        public async Task<IActionResult> CreateRuleOfGift(RuleOfGiftRequest model)
+        {
+            var resul = await _campaignService.CreateNewRuleOfGift(model);
+            return Ok(resul);
+        }
+        [HttpPut("{id}")]
+        //  [authorize]
+        public async Task<IActionResult> EditRuleOfGift(RuleOfGiftRequest model,int id)
+        {
+            var resul = await _campaignService.EditRuleOfGift(model, id);
+            return Ok(resul);
+        }
+
+        [HttpPut("{id}")]
+        //  [authorize]
+        public async Task<IActionResult> RaiseThePriorityOfTheRule(int id)
+        {
+            var resul = await _campaignService.RaiseThePriorityOfTheRule(id);
+            return Ok(resul);
+        }
+        [HttpPut("{id}")]
+        //  [authorize]
+        public async Task<IActionResult> ReducedThePriorityOfTheRule(int id)
+        {
+            var resul = await _campaignService.ReduceThePriorityOfTheRule(id);
+            return Ok(resul);
+        }
+        [HttpDelete("{id}")]
+        //  [authorize]
+        public async Task<IActionResult> DeleteRuleOfGift(int id)
+        {
+            var resul = await _campaignService.DeleteRuleOfGift(id);
+            return Ok(resul);
+        }
     }
 }

@@ -283,9 +283,10 @@ namespace CMS_1.System.Campaign
                 var gc = _appDbContext.GiftCategories.SingleOrDefault(x => x.Id == rule.IdGiftCategory);
                 RuleOfGiftVM rol = new RuleOfGiftVM
                 {
+                    id = rule.Id,
                     RuleName = rule.Name,
                     GiftName = gc.Name,
-                    Schedule = rs.Name + rule.ScheduleData,
+                    Schedule = rs.Name +": "+ rule.ScheduleData,
                     StartTime = rule.StartTime,
                     EndTime =rule.EndTime,
                     AllDay = rule.AllDay,
@@ -303,7 +304,16 @@ namespace CMS_1.System.Campaign
         {
             try
             {
-                var ruleofgift = new RuleOfGift
+                int priority;
+                if (_appDbContext.RuleOfGifts.Count() == 0)
+                {
+                    priority = 1;
+                }
+                else
+                {
+                    priority = _appDbContext.RuleOfGifts.Max(x => x.Priority) + 1;
+                }
+                var rog = new RuleOfGift
                 {
                     Name = model.RuleName,
                     GiftCount = model.GiftCount,
@@ -313,11 +323,11 @@ namespace CMS_1.System.Campaign
                     Probability = model.Probability,
                     ScheduleData = model.ScheduleData,
                     Active = true,
-                    Priority = _appDbContext.RuleOfGifts.Max(x => x.Priority) + 1,
+                    Priority = priority,
                     IdGiftCategory = model.IdGiftCategory,
                     IdIdRepeatSchedule = model.IdRepeatSchedule
                 };
-                _appDbContext.Add(ruleofgift);
+                _appDbContext.Add(rog);
                 _appDbContext.SaveChanges();
                 return new RuleOfGiftResponse { Success = true, Message = "Create Rule for Gifts successful." };
             }
@@ -373,6 +383,97 @@ namespace CMS_1.System.Campaign
             {
                 return new RuleOfGiftResponse { Success = false, Message = "Error." };
             }
+        }
+
+        public async Task<RuleOfGiftResponse> RaiseThePriorityOfTheRule(int id)
+        {
+            try
+            {
+                var rog = _appDbContext.RuleOfGifts.SingleOrDefault(x => x.Id == id);
+                var beforerog = _appDbContext.RuleOfGifts.SingleOrDefault(x=>x.Priority==rog.Priority-1);
+                var temp = rog.Priority;
+                if (beforerog == null)
+                {
+                    return new RuleOfGiftResponse { Success = false, Message = "Don't have previous priority " };
+
+                }
+                else
+                {
+                    rog.Priority = beforerog.Priority;
+                    beforerog.Priority = temp;
+                    _appDbContext.Update(rog);
+                    _appDbContext.Update(beforerog);
+                    _appDbContext.SaveChanges();
+                    return new RuleOfGiftResponse { Success = true, Message = "The priority of the rule " + rog.Name + " is raised." };
+
+                }
+            }
+            catch
+            {
+                return new RuleOfGiftResponse { Success = false, Message = "error" };
+            }
+
+        }
+
+        public async Task<RuleOfGiftResponse> ReduceThePriorityOfTheRule(int id)
+        {
+            try
+            {
+                var rog = _appDbContext.RuleOfGifts.SingleOrDefault(x => x.Id == id);
+                var afterrog = _appDbContext.RuleOfGifts.SingleOrDefault(x => x.Priority == rog.Priority + 1);
+                var temp = rog.Priority;
+                if (afterrog == null)
+                {
+                    return new RuleOfGiftResponse { Success = false, Message = "Don't have next priority " };
+
+                }
+                else
+                {
+                    rog.Priority = afterrog.Priority;
+                    afterrog.Priority = temp;
+                    _appDbContext.Update(rog);
+                    _appDbContext.Update(afterrog);
+                    _appDbContext.SaveChanges();
+                    return new RuleOfGiftResponse { Success = true, Message = "The priority of the rule " + rog.Name + " is reduced." };
+
+                }
+
+                rog.Priority = afterrog.Priority;
+                afterrog.Priority = temp;
+                _appDbContext.Update(rog);
+                _appDbContext.Update(afterrog);
+                _appDbContext.SaveChanges();
+                return new RuleOfGiftResponse { Success = true, Message = "The priority of the rule " + rog.Name + " is reduced." };
+            }
+            catch
+            {
+                return new RuleOfGiftResponse { Success = false, Message = "error" };
+            }
+        }
+
+        public async Task<RuleOfGiftResponse> DeleteRuleOfGift(int id)
+        {
+            try
+            {
+                var rog = _appDbContext.RuleOfGifts.SingleOrDefault(x => x.Id == id);
+                _appDbContext.Remove(rog);
+                _appDbContext.SaveChanges();
+                var listrog = _appDbContext.RuleOfGifts.OrderBy(x => x.Priority).ToList();
+                int i = 1;
+                foreach(var r in listrog)
+                {
+                    r.Priority = i;
+                    i++;
+                    _appDbContext.Update(r);
+                }
+                _appDbContext.SaveChanges();
+                 return new RuleOfGiftResponse { Success = true, Message = "The rule "+rog.Name+" is deleted" };
+            }
+            catch
+            {
+                return new RuleOfGiftResponse { Success = false, Message = "error" };
+            }
+            
         }
     }
 }

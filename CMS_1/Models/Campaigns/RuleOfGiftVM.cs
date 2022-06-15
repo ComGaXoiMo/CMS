@@ -2,6 +2,7 @@
 {
     public class RuleOfGiftVM
     {
+        public int id { get; set; }
         public string RuleName { get; set; }
         public string GiftName { get; set; }
         public string Schedule { get; set; }

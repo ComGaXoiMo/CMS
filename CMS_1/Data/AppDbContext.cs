@@ -64,7 +64,7 @@ namespace CMS_1.Models
             modelBuilder.Entity<RuleOfGift>(entity =>
             {
                 entity.HasIndex(e => e.Name).IsUnique();
-                entity.HasIndex(e => e.Priority).IsUnique();
+               // entity.HasIndex(e => e.Priority).IsUnique();
             });
             modelBuilder.Entity<Barcode>(entity =>
             {
