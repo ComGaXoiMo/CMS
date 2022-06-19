@@ -39,6 +39,7 @@ namespace CMS_1.System.Gifts
                 var campaign = _appDbContext.Campaigns.SingleOrDefault(x=>x.Id==gift.IdCampaign);
                 GiftsVM giftsVM = new GiftsVM
                 {
+                    Id = gift.Id,
                     GiftCode = gift.GiftCode,
                     CampaignName = campaign.Name,
                     CreateDate = gift.CreateDate,

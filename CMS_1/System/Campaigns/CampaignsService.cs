@@ -35,9 +35,9 @@ namespace CMS_1.System.Campaign
                     CountCode = model.CountCode,
                     IdProgramSize = model.IdProgramSize,
                     StartDay = model.timeFrame.StartDay.Date,
-                    StartTime = model.timeFrame.StartDay.TimeOfDay,
+                    StartTime = model.timeFrame.StartTime.TimeOfDay,
                     EndDay = model.timeFrame.EndDay.Date,
-                    EndTime = model.timeFrame.EndDay.TimeOfDay,
+                    EndTime = model.timeFrame.EndTime.TimeOfDay,
 
                 };
                 int IdCampaignTemp;
@@ -474,6 +474,28 @@ namespace CMS_1.System.Campaign
                 return new RuleOfGiftResponse { Success = false, Message = "error" };
             }
             
+        }
+
+        public ICollection<WinnersVM> GetAllWinners()
+        {
+            var allwinner = _appDbContext.Winners.ToList();
+            var listwinnerVM = new List<WinnersVM>();
+            foreach (var winner in allwinner)
+            {
+                var ctm = _appDbContext.Customers.SingleOrDefault(x => x.Id == winner.IdCustomer);
+                var g = _appDbContext.Gifts.SingleOrDefault(x => x.Id == winner.IdGift);
+                var gc = _appDbContext.GiftCategories.SingleOrDefault(x => x.Id == g.IdGiftCategory);
+                WinnersVM wn = new WinnersVM
+                {
+                    FullName = ctm.Name,
+                    WinDate = winner.WinDate,
+                    GiftCode = g.GiftCode,
+                    GiftName = gc.Name,
+                    SentGift = winner.SendGiftStatus
+                };
+                listwinnerVM.Add(wn);
+            }
+            return listwinnerVM;
         }
     }
 }

@@ -74,6 +74,18 @@ namespace CMS_1.Models
             {
                 entity.HasIndex(e => e.Name).IsUnique();
             });
+            modelBuilder.Entity<Customer>(entity =>
+            {
+                entity.HasData(
+                    new { Id = 1, Name = "Nguyễn Hữu Huân", PhoneNumber = "0901456781", DoB = DateTime.Parse("1973-03-01"), Position = "Chủ", TypeOfBusiness = "Khách sạn", Address = "Quận 6, TPHCM", IsBlock = false },
+                    new { Id = 2, Name = "Nguyễn Trọng Hữu", PhoneNumber = "0907852781", DoB = DateTime.Parse("1974-04-01"), Position = "Quản lý", TypeOfBusiness = "Nhà hàng", Address = "Quận 5, TPHCM", IsBlock = false },
+                    new { Id = 3, Name = "Trần Hùng Phát", PhoneNumber = "0901485381", DoB = DateTime.Parse("1975-05-01"), Position = "Bếp", TypeOfBusiness = "Quán ăn", Address = "Quận 7, TPHCM", IsBlock = false },
+                    new { Id = 4, Name = "Lê Ngọc Anh", PhoneNumber = "0901451981", DoB = DateTime.Parse("1976-06-01"), Position = "Chủ", TypeOfBusiness = "Bán sỉ", Address = "Bến Lức, Long An", IsBlock = false },
+                    new { Id = 5, Name = "Lê Phan", PhoneNumber = "0901742681", DoB = DateTime.Parse("1977-07-01"), Position = "Quản lý", TypeOfBusiness = "Quán ăn", Address = "Biên Hòa, Đồng Nai", IsBlock = false },
+                    new { Id = 6, Name = "Nguyễn Thị Ngọc Hương", PhoneNumber = "0904803457", DoB = DateTime.Parse("1978-08-01"), Position = "Chủ", TypeOfBusiness = "Quán ăn", Address = "Bến Lức, Long An", IsBlock = false },
+                    new { Id = 7, Name = "Trần Văn Tình", PhoneNumber = "0947514514", DoB = DateTime.Parse("1979-09-01"), Position = "Chủ", TypeOfBusiness = "Resort", Address = "Cai Lậy, Tiền Giang", IsBlock = false }                          
+                    );
+            });
         }
     }
 }

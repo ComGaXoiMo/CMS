@@ -124,5 +124,12 @@ namespace CMS_1.Controllers
             var resul = await _campaignService.DeleteRuleOfGift(id);
             return Ok(resul);
         }
+        [HttpGet]
+        //  [authorize]
+        public async Task<IActionResult> GetAllWinners()
+        {
+            var resul = _campaignService.GetAllWinners();
+            return Ok(resul);
+        }
     }
 }

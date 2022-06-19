@@ -23,7 +23,7 @@ namespace CMS_1.Controllers
         //[Authorize]
         public async Task<IActionResult> GetAll()
         {
-            var resul = _giftsService.GetAllGifts();
+            var resul =  _giftsService.GetAllGifts();
             return Ok(resul);
         }
         [HttpPost]

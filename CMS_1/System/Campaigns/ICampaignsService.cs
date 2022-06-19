@@ -20,5 +20,6 @@ namespace CMS_1.System.Campaign
         Task<RuleOfGiftResponse> RaiseThePriorityOfTheRule(int id);
         Task<RuleOfGiftResponse> ReduceThePriorityOfTheRule(int id);
         Task<RuleOfGiftResponse> DeleteRuleOfGift(int id);
+        ICollection<WinnersVM> GetAllWinners();
     }
 }
