@@ -11,12 +11,10 @@ namespace CMS_1.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
-        private readonly AppDbContext _appDbContext;
 
-        public UsersController(IUserService userService, AppDbContext appDbContext)
+        public UsersController(IUserService userService)
         {
             _userService = userService;
-            _appDbContext = appDbContext;
         }
 
         [HttpPost]

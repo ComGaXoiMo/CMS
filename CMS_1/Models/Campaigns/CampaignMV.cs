@@ -2,20 +2,14 @@
 {
     public class CampaignMV
     {
+        public int Id { get; set; }
         public string Name { get; set; }
-
-        public bool AutoUpdate { get; set; }
-        public bool JoinOnlyOne { get; set; }
-        public string Decription { get; set; }
-        public int CodeUsageLimit { get; set; }
-        public bool Unlimited { get; set; }
-        public int CountCode { get; set; }
-        public int CodeLength { get; set; }
-        public string Prefix { get; set; }
-        public string Postfix { get; set; }
-
-        public int? IdCharset { get; set; }
-        public int? IdProgramSize { get; set; }
-
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public int ActiveCode { get; set; }
+        public int  GiftQuantity { get; set; }
+        public int Scanned { get; set; }
+        public int UseForSpin { get; set; }
+        public int Win { get; set; }
     }
 }

@@ -11,23 +11,21 @@ namespace CMS_1.Controllers
     [ApiController]
     public class GiftsController : ControllerBase
     {
-        private readonly AppDbContext _appDbContext;
         private readonly IGiftsService _giftsService;
 
-        public GiftsController(IGiftsService giftsService, AppDbContext appDbContext)
+        public GiftsController(IGiftsService giftsService)
         {
-            _appDbContext = appDbContext;
             _giftsService = giftsService;
         }
         [HttpGet]
-        //[Authorize]
+        [Authorize]
         public async Task<IActionResult> GetAll()
         {
             var resul =  _giftsService.GetAllGifts();
             return Ok(resul);
         }
         [HttpPost]
-        //[Authorize]
+        [Authorize]
         public async Task<IActionResult> CreateNewGifts(CreateGiftRequest model)
         {
             var resul = _giftsService.CreateNewGifts(model);

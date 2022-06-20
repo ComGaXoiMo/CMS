@@ -6,7 +6,7 @@ namespace CMS_1.System.Campaign
 {
     public interface ICampaignsService
     {
-        ICollection<Campaignn> GetAllCampaigns();
+        ICollection<CampaignMV> GetAllCampaigns();
         Task<CreateCampaignResponse> CreateCampaign(CreateCampaignRequest model);
         Task<GenerateNewBarcodeReqsponse> CreateNewBarcodes(GenerateNewBarcodeRequest model);
         Task<GenerateNewBarcodeReqsponse> ChangeStateOfBarcode(int id, bool status);

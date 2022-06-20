@@ -11,17 +11,15 @@ namespace CMS_1.Controllers
     [ApiController]
     public class GiftCategoriesController : ControllerBase
     {
-        private readonly AppDbContext _appDbContext;
         private readonly IGiftCategoriesService _giftCategoriesService;
 
-        public GiftCategoriesController(IGiftCategoriesService giftCategoriesService, AppDbContext appDbContext)
+        public GiftCategoriesController(IGiftCategoriesService giftCategoriesService)
         {
-            _appDbContext = appDbContext;
             _giftCategoriesService = giftCategoriesService;
         }
 
         [HttpGet]
-        //[Authorize]
+        [Authorize]
         public async Task<IActionResult> GetAll()
         {
             var resul =  _giftCategoriesService.GetAllGiftCategories();
@@ -29,7 +27,7 @@ namespace CMS_1.Controllers
             return Ok(resul) ;
         }
         [HttpPost]
-        //[Authorize]
+        [Authorize]
         public async Task<IActionResult> Create(GiftCategoriesResquest model)
         {
             var resul = await _giftCategoriesService.CreateGiftCategory(model);
@@ -37,15 +35,15 @@ namespace CMS_1.Controllers
             return Ok(resul);
         }
         [HttpPut("{id}")]
-        //[Authorize]
-        public async Task<IActionResult> ChangeStatusByID(bool status, int id)
+        [Authorize]
+        public async Task<IActionResult> ChangeStatusByID([FromBody]bool status, int id)
         {
             var resul = await _giftCategoriesService.ChangeStatusGiftCategory(id, status);
 
             return Ok(resul);
         }
         [HttpPut("{id}")]
-        //[Authorize]
+        [Authorize]
         public async Task<IActionResult> Edit(GiftCategoriesResquest model, int id)
         {
             var resul = await _giftCategoriesService.EditGiftCategory(model, id);
@@ -53,6 +51,7 @@ namespace CMS_1.Controllers
             return Ok(resul);
         }
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteById(int id)
         {
             var resul = await _giftCategoriesService.DeleteGiftCategory(id);

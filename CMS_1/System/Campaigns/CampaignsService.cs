@@ -79,10 +79,30 @@ namespace CMS_1.System.Campaign
             }
         }
 
-        public  ICollection<Campaignn> GetAllCampaigns()
+        public ICollection<CampaignMV> GetAllCampaigns()
         {
             var ds =  _appDbContext.Campaigns.ToList();
-            return ds;
+            var listcpVM = new List<CampaignMV>();
+            foreach( var cp in ds)
+            {
+                var countcode = _appDbContext.Barcodes.Count(x => x.IdCampaign == cp.Id);
+                var countscanned = _appDbContext.Barcodes.Where(x=>x.IsScanned==true).Count(x => x.IdCampaign == cp.Id);
+                var countgift = _appDbContext.Gifts.Count(x => x.IdCampaign == cp.Id);
+                var cpVM = new CampaignMV
+                {
+                    Id = cp.Id,
+                    Name = cp.Name,
+                    StartDate = cp.StartDay,
+                    EndDate = cp.EndDay,
+                    ActiveCode = countcode,
+                    GiftQuantity = countgift,
+                    Scanned = countscanned,
+                    UseForSpin = 0,
+                    Win = 0
+                };
+                listcpVM.Add(cpVM);
+            }
+            return listcpVM;
         }
         
         public void AutoCreateBarCode(GenerateNewBarcodeRequest model)

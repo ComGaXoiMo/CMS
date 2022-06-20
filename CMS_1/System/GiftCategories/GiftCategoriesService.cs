@@ -48,12 +48,20 @@ namespace CMS_1.System.GiftCategories
             try
             {
                 var giftcate = _appDbContext.GiftCategories.SingleOrDefault(x => x.Id == id);
-                giftcate.Name = model.Name;
-                giftcate.Decription = model.Description;
-                giftcate.Active = model.Active;
-                _appDbContext.Update(giftcate);
-                _appDbContext.SaveChanges();
-                return new GiftCategoriesResponse { success = true, Message = "The Gift "+model.Name+" information is updated" };
+                if(giftcate == null)
+                {
+                    return new GiftCategoriesResponse { success = false, Message = "Don't find this Gift" };
+                }
+                else
+                {
+                    giftcate.Name = model.Name;
+                    giftcate.Decription = model.Description;
+                    giftcate.Active = model.Active;
+                    _appDbContext.Update(giftcate);
+                    _appDbContext.SaveChanges();
+                    return new GiftCategoriesResponse { success = true, Message = "The Gift " + model.Name + " information is updated" };
+
+                }
             }
             catch
             {
@@ -66,17 +74,25 @@ namespace CMS_1.System.GiftCategories
             try
             {
                 var giftcate = _appDbContext.GiftCategories.SingleOrDefault(x => x.Id == id);
-                giftcate.Active = status;
-                _appDbContext.Update(giftcate);
-                _appDbContext.SaveChanges();
-                if (giftcate.Active == true)
+                if (giftcate == null )
                 {
-                    return new GiftCategoriesResponse { success = true, Message = "The Gift " + giftcate.Name + " is Activated." };
+                    return new GiftCategoriesResponse { success = false, Message = "don't find this gift." };
                 }
                 else
                 {
-                    return new GiftCategoriesResponse { success = true, Message = "The Gift " + giftcate.Name + " is De-activated." };
+                    giftcate.Active = status;
+                    _appDbContext.Update(giftcate);
+                    _appDbContext.SaveChanges();
+                    if (giftcate.Active == true)
+                    {
+                        return new GiftCategoriesResponse { success = true, Message = "The Gift " + giftcate.Name + " is Activated." };
+                    }
+                    else
+                    {
+                        return new GiftCategoriesResponse { success = true, Message = "The Gift " + giftcate.Name + " is De-activated." };
+                    }
                 }
+                
             }
             catch
             {
