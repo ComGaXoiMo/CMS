@@ -1,6 +1,7 @@
 ﻿using CMS_1.Models;
 using CMS_1.Models.Campaign;
 using CMS_1.Models.Campaigns;
+using CMS_1.Models.Filters;
 using CMS_1.System.Campaign;
 using CMS_1.System.Gifts;
 using Microsoft.AspNetCore.Authorization;
@@ -129,5 +130,26 @@ namespace CMS_1.Controllers
             var resul = _campaignService.GetAllWinners();
             return Ok(resul);
         }
+        [HttpPost]
+      //  [Authorize]
+        public async Task<IActionResult> GetCampaignFilter(bool MatchAllFilter, List<Condition_Filter> Conditions)
+        {
+            //Condition_Filter:
+            //SearchCriteria: 1 : Campaign Name
+            //  Condition: 1: includes , 2: is not include
+            //SearchCriteria: 2: Created Date, 3: Expired Date
+            //  Condition: 1: more than, 2: less than, 3: exactly
+            try
+            {
+                var resul = _campaignService.FilterCampaign(MatchAllFilter, Conditions);
+                return Ok(resul);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+            
+        }
+
     }
 }

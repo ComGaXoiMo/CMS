@@ -10,7 +10,7 @@ namespace CMS_1.Models
         public int Id { get; set; }
 
         [Required]
-        [StringLength(30)]
+        [StringLength(255)]
         public string Name { get; set; }
         [Required]
         [StringLength(255)]

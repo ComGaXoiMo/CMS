@@ -1,13 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "lBUNfRsRSytDlJT5E5fD6eyDAqsxvKBN/dnZYt9QBAtb15iI1j1aVfaMyclwyk6ZIzaflMxPgvOCpACaumxqew==",
+  "dgSpecHash": "6NYPh201if4H1hoQ9yJm8yxAcdd5Xt56JnzLnBVQx9KOXuzkv39xNt00fcZJoEM6J6fVsBENhIXHrYJ//Hi2uQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\viet\\Desktop\\THUCTAP\\CMS_1\\CMS_1\\CMS_1.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\viet\\.nuget\\packages\\automapper\\11.0.1\\automapper.11.0.1.nupkg.sha512",
     "C:\\Users\\viet\\.nuget\\packages\\barcodelib\\2.4.0\\barcodelib.2.4.0.nupkg.sha512",
     "C:\\Users\\viet\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\viet\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\5.0.6\\microsoft.aspnetcore.authentication.jwtbearer.5.0.6.nupkg.sha512",
-    "C:\\Users\\viet\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
+    "C:\\Users\\viet\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\viet\\.nuget\\packages\\microsoft.data.sqlclient\\2.1.4\\microsoft.data.sqlclient.2.1.4.nupkg.sha512",
     "C:\\Users\\viet\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\2.1.1\\microsoft.data.sqlclient.sni.runtime.2.1.1.nupkg.sha512",
     "C:\\Users\\viet\\.nuget\\packages\\microsoft.entityframeworkcore\\6.0.4\\microsoft.entityframeworkcore.6.0.4.nupkg.sha512",

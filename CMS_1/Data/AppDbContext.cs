@@ -59,7 +59,10 @@ namespace CMS_1.Models
             });
             modelBuilder.Entity<Campaignn>(entity =>
             {
-                entity.HasIndex(e => e.Name).IsUnique();    
+                entity.HasIndex(e => e.Name).IsUnique();
+                entity.HasData(
+                    new { Id = 1, Name = "Campaign 1", AutoUpdate = true, JoinOnlyOne = true, Decription = "Defaut campaign", CountCode = 0, StartDay = DateTime.Parse("2020-08-02"), StartTime = TimeSpan.Parse("07:00:00"), EndDay = DateTime.Parse("2020-10-02"), EndTime = TimeSpan.Parse("23:59:59"), IdProgramSize = 1 }
+                    );
             });
             modelBuilder.Entity<RuleOfGift>(entity =>
             {
@@ -73,6 +76,11 @@ namespace CMS_1.Models
             modelBuilder.Entity<GiftCategory>(entity =>
             {
                 entity.HasIndex(e => e.Name).IsUnique();
+                entity.HasData(
+                    new { Id = 1, Name = "Hạt nêm Knorr Chay Nấm Hương 400g", Decription = "Hạt nêm Knorr Chay Nấm Hương 400g", Count = 2, Active = true, CreateDate = DateTime.Parse("2020-08-02") },
+                    new { Id = 2, Name = "Hạt nêm Knorr Từ Thịt Thăn, Xương Ống & Tủy 600gr", Decription = "Hạt nêm Knorr Từ Thịt Thăn, Xương Ống & Tủy 600gr", Count = 1, Active = true, CreateDate = DateTime.Parse("2020-03-10") },
+                    new { Id = 3, Name = "Gia vị Hoàn Chỉnh Knorr Canh Chua 30g", Decription = "Gia vị Hoàn Chỉnh Knorr Canh Chua 30g", Count = 0, Active = true, CreateDate = DateTime.Parse("2020-03-10") }
+                    );
             });
             modelBuilder.Entity<Customer>(entity =>
             {
@@ -85,6 +93,22 @@ namespace CMS_1.Models
                     new { Id = 6, Name = "Nguyễn Thị Ngọc Hương", PhoneNumber = "0904803457", DoB = DateTime.Parse("1978-08-01"), Position = "Chủ", TypeOfBusiness = "Quán ăn", Address = "Bến Lức, Long An", IsBlock = false },
                     new { Id = 7, Name = "Trần Văn Tình", PhoneNumber = "0947514514", DoB = DateTime.Parse("1979-09-01"), Position = "Chủ", TypeOfBusiness = "Resort", Address = "Cai Lậy, Tiền Giang", IsBlock = false }                          
                     );
+            });
+            modelBuilder.Entity<Gift>(entity =>
+            {
+                entity.HasData(
+                    new { Id = 1, GiftCode = "GIF2DHMAAB3E9Y", CreateDate= DateTime.Parse("2020-03-10"), UsageLimit = 1, Active = true, Used = 1 , IdGiftCategory = 1 , IdCampaign = 1 },
+                    new { Id = 2, GiftCode = "GIF2DERGH1B3WE", CreateDate = DateTime.Parse("2020-03-10"), UsageLimit = 1, Active = true, Used = 1, IdGiftCategory = 1, IdCampaign = 1 },
+                    new { Id = 3, GiftCode = "GIF2DQBJLYNCVSD", CreateDate = DateTime.Parse("2020-03-10"), UsageLimit = 1, Active = true, Used = 1, IdGiftCategory = 2, IdCampaign = 1 }
+                    );
+            });
+            modelBuilder.Entity<Winner>(entity =>
+            {
+                entity.HasData(
+                   new { Id = 1, WinDate = DateTime.Parse("2020-03-12"), SendGiftStatus = true, IdCustomer = 1, IdGift = 1 },
+                   new { Id = 2, WinDate = DateTime.Parse("2020-03-12"), SendGiftStatus = true, IdCustomer = 2, IdGift = 2 },
+                   new { Id = 3, WinDate = DateTime.Parse("2020-03-12"), SendGiftStatus = true, IdCustomer = 3, IdGift = 3 }
+                   );
             });
         }
     }

@@ -1,6 +1,7 @@
 ﻿using CMS_1.Models;
 using CMS_1.Models.Campaign;
 using CMS_1.Models.Campaigns;
+using CMS_1.Models.Filters;
 
 namespace CMS_1.System.Campaign
 {
@@ -21,5 +22,6 @@ namespace CMS_1.System.Campaign
         Task<RuleOfGiftResponse> ReduceThePriorityOfTheRule(int id);
         Task<RuleOfGiftResponse> DeleteRuleOfGift(int id);
         ICollection<WinnersVM> GetAllWinners();
+        ICollection<Campaignn> FilterCampaign(bool MatchAllFilter, List<Condition_Filter> Conditions);
     }
 }

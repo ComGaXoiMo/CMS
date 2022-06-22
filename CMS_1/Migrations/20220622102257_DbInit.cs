@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CMS_1.Migrations
 {
-    public partial class Dbinit : Migration
+    public partial class DbInit : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -31,7 +31,6 @@ namespace CMS_1.Migrations
                     Name = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DoB = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Active = table.Column<bool>(type: "bit", nullable: false),
                     Position = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TypeOfBusiness = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -48,7 +47,7 @@ namespace CMS_1.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     Decription = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     Count = table.Column<int>(type: "int", nullable: false),
                     Active = table.Column<bool>(type: "bit", nullable: false),
@@ -260,12 +259,46 @@ namespace CMS_1.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Customer",
+                columns: new[] { "Id", "Address", "DoB", "IsBlock", "Name", "PhoneNumber", "Position", "TypeOfBusiness" },
+                values: new object[,]
+                {
+                    { 1, "Quận 6, TPHCM", new DateTime(1973, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "Nguyễn Hữu Huân", "0901456781", "Chủ", "Khách sạn" },
+                    { 2, "Quận 5, TPHCM", new DateTime(1974, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "Nguyễn Trọng Hữu", "0907852781", "Quản lý", "Nhà hàng" },
+                    { 3, "Quận 7, TPHCM", new DateTime(1975, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "Trần Hùng Phát", "0901485381", "Bếp", "Quán ăn" },
+                    { 4, "Bến Lức, Long An", new DateTime(1976, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "Lê Ngọc Anh", "0901451981", "Chủ", "Bán sỉ" },
+                    { 5, "Biên Hòa, Đồng Nai", new DateTime(1977, 7, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "Lê Phan", "0901742681", "Quản lý", "Quán ăn" },
+                    { 6, "Bến Lức, Long An", new DateTime(1978, 8, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "Nguyễn Thị Ngọc Hương", "0904803457", "Chủ", "Quán ăn" },
+                    { 7, "Cai Lậy, Tiền Giang", new DateTime(1979, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "Trần Văn Tình", "0947514514", "Chủ", "Resort" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "GiftCategory",
+                columns: new[] { "Id", "Active", "Count", "CreateDate", "Decription", "Name" },
+                values: new object[,]
+                {
+                    { 1, true, 2, new DateTime(2020, 8, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), "Hạt nêm Knorr Chay Nấm Hương 400g", "Hạt nêm Knorr Chay Nấm Hương 400g" },
+                    { 2, true, 1, new DateTime(2020, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "Hạt nêm Knorr Từ Thịt Thăn, Xương Ống & Tủy 600gr", "Hạt nêm Knorr Từ Thịt Thăn, Xương Ống & Tủy 600gr" },
+                    { 3, true, 0, new DateTime(2020, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "Gia vị Hoàn Chỉnh Knorr Canh Chua 30g", "Gia vị Hoàn Chỉnh Knorr Canh Chua 30g" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "ProgramSize",
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
                     { 1, "Bulk codes" },
                     { 2, "Standalone code" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "RepeatSchedule",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Monthly on day" },
+                    { 2, "Weekly on" },
+                    { 3, "Repeat daily" }
                 });
 
             migrationBuilder.InsertData(
@@ -276,6 +309,41 @@ namespace CMS_1.Migrations
                     { 1, "123@gmail.com", "123Aaa" },
                     { 2, "abc@gmail.com", "123Qwe" }
                 });
+
+            migrationBuilder.InsertData(
+                table: "Campaign",
+                columns: new[] { "Id", "AutoUpdate", "CountCode", "Decription", "EndDay", "EndTime", "IdProgramSize", "JoinOnlyOne", "Name", "StartDay", "StartTime" },
+                values: new object[] { 1, true, 0, "Defaut campaign", new DateTime(2020, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 23, 59, 59, 0), 1, true, "Campaign 1", new DateTime(2020, 8, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 7, 0, 0, 0) });
+
+            migrationBuilder.InsertData(
+                table: "Gift",
+                columns: new[] { "Id", "Active", "CreateDate", "GiftCode", "IdCampaign", "IdGiftCategory", "UsageLimit", "Used" },
+                values: new object[] { 1, true, new DateTime(2020, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "GIF2DHMAAB3E9Y", 1, 1, 1, 1 });
+
+            migrationBuilder.InsertData(
+                table: "Gift",
+                columns: new[] { "Id", "Active", "CreateDate", "GiftCode", "IdCampaign", "IdGiftCategory", "UsageLimit", "Used" },
+                values: new object[] { 2, true, new DateTime(2020, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "GIF2DERGH1B3WE", 1, 1, 1, 1 });
+
+            migrationBuilder.InsertData(
+                table: "Gift",
+                columns: new[] { "Id", "Active", "CreateDate", "GiftCode", "IdCampaign", "IdGiftCategory", "UsageLimit", "Used" },
+                values: new object[] { 3, true, new DateTime(2020, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "GIF2DQBJLYNCVSD", 1, 2, 1, 1 });
+
+            migrationBuilder.InsertData(
+                table: "Winner",
+                columns: new[] { "Id", "IdCustomer", "IdGift", "SendGiftStatus", "WinDate" },
+                values: new object[] { 1, 1, 1, true, new DateTime(2020, 3, 12, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+
+            migrationBuilder.InsertData(
+                table: "Winner",
+                columns: new[] { "Id", "IdCustomer", "IdGift", "SendGiftStatus", "WinDate" },
+                values: new object[] { 2, 2, 2, true, new DateTime(2020, 3, 12, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+
+            migrationBuilder.InsertData(
+                table: "Winner",
+                columns: new[] { "Id", "IdCustomer", "IdGift", "SendGiftStatus", "WinDate" },
+                values: new object[] { 3, 3, 3, true, new DateTime(2020, 3, 12, 0, 0, 0, 0, DateTimeKind.Unspecified) });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Barcode_Code",
@@ -333,6 +401,12 @@ namespace CMS_1.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_RepeatSchedule_Name",
+                table: "RepeatSchedule",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_RuleOfGift_IdGiftCategory",
                 table: "RuleOfGift",
                 column: "IdGiftCategory");
@@ -341,6 +415,12 @@ namespace CMS_1.Migrations
                 name: "IX_RuleOfGift_IdIdRepeatSchedule",
                 table: "RuleOfGift",
                 column: "IdIdRepeatSchedule");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RuleOfGift_Name",
+                table: "RuleOfGift",
+                column: "Name",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_User_Email",

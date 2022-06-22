@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CMS_1.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220614065603_Dbinit")]
-    partial class Dbinit
+    [Migration("20220622102257_DbInit")]
+    partial class DbInit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -140,6 +140,22 @@ namespace CMS_1.Migrations
                         .IsUnique();
 
                     b.ToTable("Campaign");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AutoUpdate = true,
+                            CountCode = 0,
+                            Decription = "Defaut campaign",
+                            EndDay = new DateTime(2020, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EndTime = new TimeSpan(0, 23, 59, 59, 0),
+                            IdProgramSize = 1,
+                            JoinOnlyOne = true,
+                            Name = "Campaign 1",
+                            StartDay = new DateTime(2020, 8, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new TimeSpan(0, 7, 0, 0, 0)
+                        });
                 });
 
             modelBuilder.Entity("CMS_1.Models.Charset", b =>
@@ -188,9 +204,6 @@ namespace CMS_1.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<bool>("Active")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Address")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -221,6 +234,85 @@ namespace CMS_1.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Customer");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "Quận 6, TPHCM",
+                            DoB = new DateTime(1973, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsBlock = false,
+                            Name = "Nguyễn Hữu Huân",
+                            PhoneNumber = "0901456781",
+                            Position = "Chủ",
+                            TypeOfBusiness = "Khách sạn"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Address = "Quận 5, TPHCM",
+                            DoB = new DateTime(1974, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsBlock = false,
+                            Name = "Nguyễn Trọng Hữu",
+                            PhoneNumber = "0907852781",
+                            Position = "Quản lý",
+                            TypeOfBusiness = "Nhà hàng"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Address = "Quận 7, TPHCM",
+                            DoB = new DateTime(1975, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsBlock = false,
+                            Name = "Trần Hùng Phát",
+                            PhoneNumber = "0901485381",
+                            Position = "Bếp",
+                            TypeOfBusiness = "Quán ăn"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Address = "Bến Lức, Long An",
+                            DoB = new DateTime(1976, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsBlock = false,
+                            Name = "Lê Ngọc Anh",
+                            PhoneNumber = "0901451981",
+                            Position = "Chủ",
+                            TypeOfBusiness = "Bán sỉ"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Address = "Biên Hòa, Đồng Nai",
+                            DoB = new DateTime(1977, 7, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsBlock = false,
+                            Name = "Lê Phan",
+                            PhoneNumber = "0901742681",
+                            Position = "Quản lý",
+                            TypeOfBusiness = "Quán ăn"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Address = "Bến Lức, Long An",
+                            DoB = new DateTime(1978, 8, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsBlock = false,
+                            Name = "Nguyễn Thị Ngọc Hương",
+                            PhoneNumber = "0904803457",
+                            Position = "Chủ",
+                            TypeOfBusiness = "Quán ăn"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Address = "Cai Lậy, Tiền Giang",
+                            DoB = new DateTime(1979, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsBlock = false,
+                            Name = "Trần Văn Tình",
+                            PhoneNumber = "0947514514",
+                            Position = "Chủ",
+                            TypeOfBusiness = "Resort"
+                        });
                 });
 
             modelBuilder.Entity("CMS_1.Models.Gift", b =>
@@ -261,6 +353,41 @@ namespace CMS_1.Migrations
                     b.HasIndex("IdGiftCategory");
 
                     b.ToTable("Gift");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Active = true,
+                            CreateDate = new DateTime(2020, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            GiftCode = "GIF2DHMAAB3E9Y",
+                            IdCampaign = 1,
+                            IdGiftCategory = 1,
+                            UsageLimit = 1,
+                            Used = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Active = true,
+                            CreateDate = new DateTime(2020, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            GiftCode = "GIF2DERGH1B3WE",
+                            IdCampaign = 1,
+                            IdGiftCategory = 1,
+                            UsageLimit = 1,
+                            Used = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Active = true,
+                            CreateDate = new DateTime(2020, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            GiftCode = "GIF2DQBJLYNCVSD",
+                            IdCampaign = 1,
+                            IdGiftCategory = 2,
+                            UsageLimit = 1,
+                            Used = 1
+                        });
                 });
 
             modelBuilder.Entity("CMS_1.Models.GiftCategory", b =>
@@ -287,8 +414,8 @@ namespace CMS_1.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.HasKey("Id");
 
@@ -296,6 +423,35 @@ namespace CMS_1.Migrations
                         .IsUnique();
 
                     b.ToTable("GiftCategory");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Active = true,
+                            Count = 2,
+                            CreateDate = new DateTime(2020, 8, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Decription = "Hạt nêm Knorr Chay Nấm Hương 400g",
+                            Name = "Hạt nêm Knorr Chay Nấm Hương 400g"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Active = true,
+                            Count = 1,
+                            CreateDate = new DateTime(2020, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Decription = "Hạt nêm Knorr Từ Thịt Thăn, Xương Ống & Tủy 600gr",
+                            Name = "Hạt nêm Knorr Từ Thịt Thăn, Xương Ống & Tủy 600gr"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Active = true,
+                            Count = 0,
+                            CreateDate = new DateTime(2020, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Decription = "Gia vị Hoàn Chỉnh Knorr Canh Chua 30g",
+                            Name = "Gia vị Hoàn Chỉnh Knorr Canh Chua 30g"
+                        });
                 });
 
             modelBuilder.Entity("CMS_1.Models.ProgramSize", b =>
@@ -346,7 +502,27 @@ namespace CMS_1.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique();
+
                     b.ToTable("RepeatSchedule");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Monthly on day"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Weekly on"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Repeat daily"
+                        });
                 });
 
             modelBuilder.Entity("CMS_1.Models.RuleOfGift", b =>
@@ -398,6 +574,9 @@ namespace CMS_1.Migrations
                     b.HasIndex("IdGiftCategory");
 
                     b.HasIndex("IdIdRepeatSchedule");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("RuleOfGift");
                 });
@@ -469,6 +648,32 @@ namespace CMS_1.Migrations
                     b.HasIndex("IdGift");
 
                     b.ToTable("Winner");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            IdCustomer = 1,
+                            IdGift = 1,
+                            SendGiftStatus = true,
+                            WinDate = new DateTime(2020, 3, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            IdCustomer = 2,
+                            IdGift = 2,
+                            SendGiftStatus = true,
+                            WinDate = new DateTime(2020, 3, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            IdCustomer = 3,
+                            IdGift = 3,
+                            SendGiftStatus = true,
+                            WinDate = new DateTime(2020, 3, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("CMS_1.Models.Barcode", b =>

@@ -7,6 +7,9 @@ using System.Drawing.Imaging;
 using QRCoder;
 using SkiaSharp;
 using CMS_1.Models.Campaigns;
+using CMS_1.Models.Filters;
+using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 
 namespace CMS_1.System.Campaign
 {
@@ -517,6 +520,72 @@ namespace CMS_1.System.Campaign
             }
             return listwinnerVM;
         }
+
+        private string SqlFilterCampaign(int SearchCriteria, int Condition, string Value)
+        {
+            var str = "";
+            if (SearchCriteria == 1)
+            {
+                str = str + "name ";
+                if (Condition == 1)
+                {
+                    return str + "like N'%" + Value + "%' ";
+                }
+                if (Condition == 2)
+                {
+                    return "not " + str + "like N'%" + Value + "%' ";
+                }
+            }
+            if (SearchCriteria == 2)
+            {
+                str = str + "StartDay ";
+            }
+            if (SearchCriteria == 3)
+            {
+                str = str + "EndDay ";
+            }
+            if (Condition == 1)
+            {
+                return str + ">= '" + Value + "'";
+            }
+            if (Condition == 2)
+            {
+                return str + "<= '" + Value + "'";
+            }
+            if (Condition == 3)
+            {
+                return str + "= '" + Value + "'";
+            }
+            return str;
+        }
+        public ICollection<Campaignn> FilterCampaign(bool MatchAllFilter, List<Condition_Filter> Conditions)
+        {
+
+            var str = "";
+            for (int i = 0; i < Conditions.Count; i++)
+            {
+                if (i > 0)
+                {
+                    if (MatchAllFilter == true)
+                    {
+                        str = str + "AND ";
+                    }
+                    else
+                    {
+                        str = str + "OR ";
+                    }
+                }
+
+                Condition_Filter temp = Conditions[i];
+                str = str + SqlFilterCampaign(temp.SearchCriteria, temp.Condition, temp.Value);
+            }
+
+              var  list = _appDbContext.Campaigns.FromSqlRaw("Select * from dbo.Campaign Where " + str).ToList();
+            
+
+            return list;
+        }
+
     }
 }
     

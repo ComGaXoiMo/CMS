@@ -138,6 +138,22 @@ namespace CMS_1.Migrations
                         .IsUnique();
 
                     b.ToTable("Campaign");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AutoUpdate = true,
+                            CountCode = 0,
+                            Decription = "Defaut campaign",
+                            EndDay = new DateTime(2020, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EndTime = new TimeSpan(0, 23, 59, 59, 0),
+                            IdProgramSize = 1,
+                            JoinOnlyOne = true,
+                            Name = "Campaign 1",
+                            StartDay = new DateTime(2020, 8, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new TimeSpan(0, 7, 0, 0, 0)
+                        });
                 });
 
             modelBuilder.Entity("CMS_1.Models.Charset", b =>
@@ -335,6 +351,41 @@ namespace CMS_1.Migrations
                     b.HasIndex("IdGiftCategory");
 
                     b.ToTable("Gift");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Active = true,
+                            CreateDate = new DateTime(2020, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            GiftCode = "GIF2DHMAAB3E9Y",
+                            IdCampaign = 1,
+                            IdGiftCategory = 1,
+                            UsageLimit = 1,
+                            Used = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Active = true,
+                            CreateDate = new DateTime(2020, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            GiftCode = "GIF2DERGH1B3WE",
+                            IdCampaign = 1,
+                            IdGiftCategory = 1,
+                            UsageLimit = 1,
+                            Used = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Active = true,
+                            CreateDate = new DateTime(2020, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            GiftCode = "GIF2DQBJLYNCVSD",
+                            IdCampaign = 1,
+                            IdGiftCategory = 2,
+                            UsageLimit = 1,
+                            Used = 1
+                        });
                 });
 
             modelBuilder.Entity("CMS_1.Models.GiftCategory", b =>
@@ -361,8 +412,8 @@ namespace CMS_1.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.HasKey("Id");
 
@@ -370,6 +421,35 @@ namespace CMS_1.Migrations
                         .IsUnique();
 
                     b.ToTable("GiftCategory");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Active = true,
+                            Count = 2,
+                            CreateDate = new DateTime(2020, 8, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Decription = "Hạt nêm Knorr Chay Nấm Hương 400g",
+                            Name = "Hạt nêm Knorr Chay Nấm Hương 400g"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Active = true,
+                            Count = 1,
+                            CreateDate = new DateTime(2020, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Decription = "Hạt nêm Knorr Từ Thịt Thăn, Xương Ống & Tủy 600gr",
+                            Name = "Hạt nêm Knorr Từ Thịt Thăn, Xương Ống & Tủy 600gr"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Active = true,
+                            Count = 0,
+                            CreateDate = new DateTime(2020, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Decription = "Gia vị Hoàn Chỉnh Knorr Canh Chua 30g",
+                            Name = "Gia vị Hoàn Chỉnh Knorr Canh Chua 30g"
+                        });
                 });
 
             modelBuilder.Entity("CMS_1.Models.ProgramSize", b =>
@@ -566,6 +646,32 @@ namespace CMS_1.Migrations
                     b.HasIndex("IdGift");
 
                     b.ToTable("Winner");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            IdCustomer = 1,
+                            IdGift = 1,
+                            SendGiftStatus = true,
+                            WinDate = new DateTime(2020, 3, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            IdCustomer = 2,
+                            IdGift = 2,
+                            SendGiftStatus = true,
+                            WinDate = new DateTime(2020, 3, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            IdCustomer = 3,
+                            IdGift = 3,
+                            SendGiftStatus = true,
+                            WinDate = new DateTime(2020, 3, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("CMS_1.Models.Barcode", b =>
