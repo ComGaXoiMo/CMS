@@ -9,7 +9,7 @@
         public DateTime CreateDate { get; set; }
         public DateTime ExpiredDate { get; set; }
         public DateTime? ScannedDate { get; set; }
-        public string? Owner { get; set; }
+       // public string? Owner { get; set; }
         public bool IsScanned { get; set; }
         public bool Active { get; set; }
         public string campaign { get; set; }

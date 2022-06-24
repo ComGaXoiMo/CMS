@@ -67,6 +67,13 @@ namespace CMS_1.Controllers
             return Ok(resul);
         }
         [HttpGet("{id}")]
+            //[Authorize]
+        public async Task<IActionResult> GetAllBarcodeHistories(int id)
+        {
+            var resul = _campaignService.GetAllBarcodeHistories(id);
+            return Ok(resul);
+        }
+        [HttpGet("{id}")]
         [Authorize]
         public async Task<IActionResult> GetAllGiftsOfCampaign(int id)
         {
@@ -148,7 +155,28 @@ namespace CMS_1.Controllers
             {
                 return BadRequest();
             }
-            
+        }
+        [HttpPost]
+        //  [Authorize]
+        public async Task<IActionResult> GetBarcodeFilter(bool MatchAllFilter, List<Condition_Filter> Conditions)
+        {
+            //Condition_Filter:
+            //SearchCriteria: 1 : Code
+            //  Condition: 1: includes , 2: is not include
+            //SearchCriteria: 2: Created Date, 3: Expired Date, 4: Scanned date
+            //  Condition: 1: more than, 2: less than, 3: exactly
+            //SearchCriteria: 5: Scanned Status, 6: Activation Status
+            //  Condition: 1: is, 2: is not
+            try
+            {
+                var resul = _campaignService.FilterBarcode(MatchAllFilter, Conditions);
+                return Ok(resul);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
         }
 
     }

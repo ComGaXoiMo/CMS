@@ -22,10 +22,12 @@ namespace CMS_1.Models
         public bool Unlimited { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime? ScannedDate { get; set; }
+        public DateTime? SpinDate { get; set; }
         [StringLength(30)]
         public string? Owner { get; set; }
         public bool IsScanned { get; set; }
         public bool Active { get; set; }
+        public bool UseForSpin { get; set; }
         //public int CodeLength { get; set; }
         //[Required]
         //[StringLength(30)]

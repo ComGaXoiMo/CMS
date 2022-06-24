@@ -12,6 +12,7 @@ namespace CMS_1.System.Campaign
         Task<GenerateNewBarcodeReqsponse> CreateNewBarcodes(GenerateNewBarcodeRequest model);
         Task<GenerateNewBarcodeReqsponse> ChangeStateOfBarcode(int id, bool status);
         ICollection<BarcodeVM> GetAllBarcodesOfCampaign(int id);
+        ICollection<BarcodeHistoryVM> GetAllBarcodeHistories(int id);
         Task<ScanBarcodeResponse> ScanBarcodeForCustomer(int id, string owner);
         ICollection<GiftCampaignMV> GetAllGiftOfCampaign(int id);
         ICollection<RuleOfGiftVM> GetAllRuleOfGiftInCampaign();
@@ -22,6 +23,8 @@ namespace CMS_1.System.Campaign
         Task<RuleOfGiftResponse> ReduceThePriorityOfTheRule(int id);
         Task<RuleOfGiftResponse> DeleteRuleOfGift(int id);
         ICollection<WinnersVM> GetAllWinners();
-        ICollection<Campaignn> FilterCampaign(bool MatchAllFilter, List<Condition_Filter> Conditions);
+        ICollection<CampaignMV> FilterCampaign(bool MatchAllFilter, List<Condition_Filter> Conditions);
+        ICollection<BarcodeVM> FilterBarcode(bool MatchAllFilter, List<Condition_Filter> Conditions);
+        ICollection<BarcodeHistoryVM> FilterBarcodeHistory(bool MatchAllFilter, List<Condition_Filter> Conditions);
     }
 }

@@ -244,7 +244,6 @@ namespace CMS_1.System.Campaign
                     CreateDate = barcode.CreateDate,
                     ExpiredDate = cp.EndDay,
                     ScannedDate = barcode.ScannedDate,
-                    Owner = barcode.Owner,
                     IsScanned = barcode.IsScanned,
                     Active = barcode.Active,
                     campaign = cp.Name
@@ -252,6 +251,28 @@ namespace CMS_1.System.Campaign
                 listbarcode.Add(barcodeVM);
             }
             return listbarcode;
+        }
+        public ICollection<BarcodeHistoryVM> GetAllBarcodeHistories(int id)
+        {
+            var allbarcode = _appDbContext.Barcodes.Where(x => x.IdCampaign == id).ToList();
+            var cp = _appDbContext.Campaigns.SingleOrDefault(x => x.Id == id);
+            var listbarcodehistory = new List<BarcodeHistoryVM>();
+            foreach (var barcode in allbarcode)
+            {
+                BarcodeHistoryVM barcodehistory = new BarcodeHistoryVM
+                {
+                    Id = barcode.Id,
+                    Code = barcode.Code,
+                    CreateDate = barcode.CreateDate,
+                    ScannedDate = barcode.ScannedDate,
+                    SpinDate = barcode.SpinDate,
+                    Scanned = barcode.IsScanned,
+                    Owner = barcode.Owner,
+                    UseForSpin = barcode.UseForSpin
+                };
+                listbarcodehistory.Add(barcodehistory);
+            }
+            return listbarcodehistory;
         }
 
         public async Task<ScanBarcodeResponse> ScanBarcodeForCustomer(int id, string owner)
@@ -521,6 +542,145 @@ namespace CMS_1.System.Campaign
             return listwinnerVM;
         }
 
+       
+        public ICollection<CampaignMV> FilterCampaign(bool MatchAllFilter, List<Condition_Filter> Conditions)
+        {
+            var str = "";
+            for (int i = 0; i < Conditions.Count; i++)
+            {
+               
+                if (i > 0)
+                {
+                    if (MatchAllFilter == true)
+                    {
+                        str = str + "AND ";
+                    }
+                    else
+                    {
+                        str = str + "OR ";
+                    }
+                }
+                Condition_Filter condition = Conditions[i];
+                str = str + SqlFilterCampaign(condition.SearchCriteria, condition.Condition, condition.Value);
+
+            }
+
+            var allcampaigns = _appDbContext.Campaigns.FromSqlRaw("Select * from dbo.Campaign Where " + str).ToList();
+           
+            var listCampaign = new List<CampaignMV>();
+            foreach (var cp in allcampaigns)
+            {
+                var countwin = 0;
+                var giftofcp =_appDbContext.Gifts.Where(x => x.IdCampaign == cp.Id).ToList();
+                foreach(var gift in giftofcp)
+                {
+                    countwin = _appDbContext.Winners.Where(x => x.IdGift == gift.Id).Count();
+                }
+                CampaignMV campaignVM = new CampaignMV
+                {
+                    Id = cp.Id,
+                    Name = cp.Name,
+                    StartDate = cp.StartDay,
+                    EndDate = cp.EndDay,
+                    ActiveCode = _appDbContext.Barcodes.Where(x=>x.IdCampaign==cp.Id).Count(),
+                    GiftQuantity = _appDbContext.Gifts.Where(x => x.IdCampaign == cp.Id).Count(),
+                    Scanned = _appDbContext.Barcodes.Where(x => x.IdCampaign == cp.Id).Count(x=>x.IsScanned==true),
+                    UseForSpin = _appDbContext.Barcodes.Where(x => x.IdCampaign == cp.Id).Count(x => x.UseForSpin == true),
+                    Win = countwin
+                };
+                listCampaign.Add(campaignVM);
+            }
+            return listCampaign;
+        }
+        public ICollection<BarcodeVM> FilterBarcode(bool MatchAllFilter, List<Condition_Filter> Conditions)
+        {
+
+            var str = "";
+            for (int i = 0; i < Conditions.Count; i++)
+            {
+
+                if (i > 0)
+                {
+                    if (MatchAllFilter == true)
+                    {
+                        str = str + "AND ";
+                    }
+                    else
+                    {
+                        str = str + "OR ";
+                    }
+                }
+                Condition_Filter condition = Conditions[i];
+                str = str + SqlFilterBarcode(condition.SearchCriteria, condition.Condition, condition.Value);
+
+            }
+
+            var allbarcode = _appDbContext.Barcodes.FromSqlRaw("Select * from dbo.Barcode Where " + str).ToList();
+            var listbarcode = new List<BarcodeVM>();
+            foreach (var barcode in allbarcode)
+            {
+                var cp = _appDbContext.Campaigns.SingleOrDefault(x => x.Id == barcode.IdCampaign);
+                BarcodeVM barcodeVM = new BarcodeVM
+                {
+                    Id = barcode.Id,
+                    Code = barcode.Code,
+                    BarCode = barcode.BarCode,
+                    QRcode = barcode.QRcode,
+                    CreateDate = barcode.CreateDate,
+                    ExpiredDate = cp.EndDay,
+                    ScannedDate = barcode.ScannedDate,
+                    IsScanned = barcode.IsScanned,
+                    Active = barcode.Active,
+                    campaign = cp.Name
+                };
+                listbarcode.Add(barcodeVM);
+            }
+            return listbarcode;
+        }
+        public ICollection<BarcodeHistoryVM> FilterBarcodeHistory(bool MatchAllFilter, List<Condition_Filter> Conditions)
+        {
+
+            var str = "";
+            for (int i = 0; i < Conditions.Count; i++)
+            {
+
+                if (i > 0)
+                {
+                    if (MatchAllFilter == true)
+                    {
+                        str = str + "AND ";
+                    }
+                    else
+                    {
+                        str = str + "OR ";
+                    }
+                }
+                Condition_Filter condition = Conditions[i];
+                str = str + SqlFilterBarcode(condition.SearchCriteria, condition.Condition, condition.Value);
+
+            }
+
+            var allbarcode = _appDbContext.Barcodes.FromSqlRaw("Select * from dbo.Barcode Where " + str).ToList();
+            var listbarcodehistory = new List<BarcodeHistoryVM>();
+            foreach (var barcode in allbarcode)
+            {
+                BarcodeHistoryVM barcodehistory = new BarcodeHistoryVM
+                {
+                    Id = barcode.Id,
+                    Code = barcode.Code,
+                    CreateDate = barcode.CreateDate,
+                    ScannedDate = barcode.ScannedDate,
+                    SpinDate = barcode.SpinDate,
+                    Scanned = barcode.IsScanned,
+                    Owner = barcode.Owner,
+                    UseForSpin = barcode.UseForSpin
+                };
+                listbarcodehistory.Add(barcodehistory);
+            }
+            return listbarcodehistory;
+        }
+
+
         private string SqlFilterCampaign(int SearchCriteria, int Condition, string Value)
         {
             var str = "";
@@ -539,53 +699,229 @@ namespace CMS_1.System.Campaign
             if (SearchCriteria == 2)
             {
                 str = str + "StartDay ";
+                if (Condition == 1)
+                {
+                    return str + ">= '" + Value + "'";
+                }
+                if (Condition == 2)
+                {
+                    return str + "<= '" + Value + "'";
+                }
+                if (Condition == 3)
+                {
+                    return str + "= '" + Value + "'";
+                }
             }
             if (SearchCriteria == 3)
             {
                 str = str + "EndDay ";
+                if (Condition == 1)
+                {
+                    return str + ">= '" + Value + "'";
+                }
+                if (Condition == 2)
+                {
+                    return str + "<= '" + Value + "'";
+                }
+                if (Condition == 3)
+                {
+                    return str + "= '" + Value + "'";
+                }
             }
-            if (Condition == 1)
+
+            return str;
+        }
+        private string SqlFilterBarcode(int SearchCriteria, int Condition, string Value)
+        {
+            var str = "";
+            if (SearchCriteria == 1)
             {
-                return str + ">= '" + Value + "'";
+                str = str + "Code ";
+                if (Condition == 1)
+                {
+                    return str + "like N'%" + Value + "%' ";
+                }
+                if (Condition == 2)
+                {
+                    return "not " + str + "like N'%" + Value + "%' ";
+                }
             }
-            if (Condition == 2)
+            if (SearchCriteria == 2)
             {
-                return str + "<= '" + Value + "'";
+                str = str + "CreateDate ";
+                if (Condition == 1)
+                {
+                    return str + ">= '" + Value + "'";
+                }
+                if (Condition == 2)
+                {
+                    return str + "<= '" + Value + "'";
+                }
+                if (Condition == 3)
+                {
+                    return str + "= '" + Value + "'";
+                }
             }
-            if (Condition == 3)
+            if (SearchCriteria == 3)
             {
-                return str + "= '" + Value + "'";
+                str = str + "ExpiredDate ";
+                if (Condition == 1)
+                {
+                    return str + ">= '" + Value + "'";
+                }
+                if (Condition == 2)
+                {
+                    return str + "<= '" + Value + "'";
+                }
+                if (Condition == 3)
+                {
+                    return str + "= '" + Value + "'";
+                }
+            }
+            if (SearchCriteria == 4)
+            {
+                str = str + "ScannedDate ";
+                if (Condition == 1)
+                {
+                    return str + ">= '" + Value + "'";
+                }
+                if (Condition == 2)
+                {
+                    return str + "<= '" + Value + "'";
+                }
+                if (Condition == 3)
+                {
+                    return str + "= '" + Value + "'";
+                }
+            }
+            if (SearchCriteria == 5)
+            {
+                str = str + "IsScanned ";
+                if (Condition == 1)
+                {
+                    return str + "= '" + Value + "' ";
+                }
+                if (Condition == 2)
+                {
+                    return "not " + str + "= '" + Value + "' ";
+                }
+            }
+            if (SearchCriteria == 6)
+            {
+                str = str + "Active ";
+                if (Condition == 1)
+                {
+                    return str + "= '" + Value + "' ";
+                }
+                if (Condition == 2)
+                {
+                    return "not " + str + "= '" + Value + "' ";
+                }
             }
             return str;
         }
-        public ICollection<Campaignn> FilterCampaign(bool MatchAllFilter, List<Condition_Filter> Conditions)
+        private string SqlFilterBarcodeHistory(int SearchCriteria, int Condition, string Value)
         {
-
             var str = "";
-            for (int i = 0; i < Conditions.Count; i++)
+            if (SearchCriteria == 1)
             {
-                if (i > 0)
+                str = str + "Code ";
+                if (Condition == 1)
                 {
-                    if (MatchAllFilter == true)
-                    {
-                        str = str + "AND ";
-                    }
-                    else
-                    {
-                        str = str + "OR ";
-                    }
+                    return str + "like N'%" + Value + "%' ";
                 }
-
-                Condition_Filter temp = Conditions[i];
-                str = str + SqlFilterCampaign(temp.SearchCriteria, temp.Condition, temp.Value);
+                if (Condition == 2)
+                {
+                    return "not " + str + "like N'%" + Value + "%' ";
+                }
             }
-
-              var  list = _appDbContext.Campaigns.FromSqlRaw("Select * from dbo.Campaign Where " + str).ToList();
+            if (SearchCriteria == 2)
+            {
+                str = str + "CreateDate ";
+                if (Condition == 1)
+                {
+                    return str + ">= '" + Value + "'";
+                }
+                if (Condition == 2)
+                {
+                    return str + "<= '" + Value + "'";
+                }
+                if (Condition == 3)
+                {
+                    return str + "= '" + Value + "'";
+                }
+            }
             
-
-            return list;
+            if (SearchCriteria == 3)
+            {
+                str = str + "ScannedDate ";
+                if (Condition == 1)
+                {
+                    return str + ">= '" + Value + "'";
+                }
+                if (Condition == 2)
+                {
+                    return str + "<= '" + Value + "'";
+                }
+                if (Condition == 3)
+                {
+                    return str + "= '" + Value + "'";
+                }
+            }
+            if (SearchCriteria == 4)
+            {
+                str = str + "SpinDate ";
+                if (Condition == 1)
+                {
+                    return str + ">= '" + Value + "'";
+                }
+                if (Condition == 2)
+                {
+                    return str + "<= '" + Value + "'";
+                }
+                if (Condition == 3)
+                {
+                    return str + "= '" + Value + "'";
+                }
+            }
+            if (SearchCriteria == 5)
+            {
+                str = str + "Owner ";
+                if (Condition == 1)
+                {
+                    return str + "like N'%" + Value + "%' ";
+                }
+                if (Condition == 2)
+                {
+                    return "not " + str + "like N'%" + Value + "%' ";
+                }
+            }
+            if (SearchCriteria == 6)
+            {
+                str = str + "IsScanned ";
+                if (Condition == 1)
+                {
+                    return str + "= '" + Value + "' ";
+                }
+                if (Condition == 2)
+                {
+                    return "not " + str + "= '" + Value + "' ";
+                }
+            }
+            if (SearchCriteria == 7)
+            {
+                str = str + "UseForSpin ";
+                if (Condition == 1)
+                {
+                    return str + "= '" + Value + "' ";
+                }
+                if (Condition == 2)
+                {
+                    return "not " + str + "= '" + Value + "' ";
+                }
+            }
+            return str;
         }
-
     }
 }
     
