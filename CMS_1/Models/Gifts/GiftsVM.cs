@@ -4,6 +4,7 @@
     {
         public int Id { get; set; }
         public string GiftCode { get; set; }
+        public string GiftName { get; set; }
         public string CampaignName { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime ExpiredDate { get; set; }

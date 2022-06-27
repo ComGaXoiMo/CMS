@@ -301,7 +301,6 @@ namespace CMS_1.System.Campaign
             var listgift = new List<GiftCampaignMV>();
             foreach (var giftt in allgift)
             {
-                var gc = _appDbContext.GiftCategories.SingleOrDefault(x => x.Id == giftt.IdGiftCategory);
                 GiftCampaignMV barcodeVM = new GiftCampaignMV
                 {
                     Id = giftt.Id,
@@ -310,7 +309,7 @@ namespace CMS_1.System.Campaign
                     Usagelimit = giftt.UsageLimit,
                     Active = giftt.Active,
                     Used = giftt.Used,
-                    GiftName = gc.Name,
+                    GiftName = giftt.GiftName,
                 };
                 listgift.Add(barcodeVM);
             }
@@ -528,13 +527,12 @@ namespace CMS_1.System.Campaign
             {
                 var ctm = _appDbContext.Customers.SingleOrDefault(x => x.Id == winner.IdCustomer);
                 var g = _appDbContext.Gifts.SingleOrDefault(x => x.Id == winner.IdGift);
-                var gc = _appDbContext.GiftCategories.SingleOrDefault(x => x.Id == g.IdGiftCategory);
                 WinnersVM wn = new WinnersVM
                 {
                     FullName = ctm.Name,
                     WinDate = winner.WinDate,
                     GiftCode = g.GiftCode,
-                    GiftName = gc.Name,
+                    GiftName = g.GiftName,
                     SentGift = winner.SendGiftStatus
                 };
                 listwinnerVM.Add(wn);
@@ -679,7 +677,86 @@ namespace CMS_1.System.Campaign
             }
             return listbarcodehistory;
         }
+        public ICollection<GiftCampaignMV> FilterGift(bool MatchAllFilter, List<Condition_Filter> Conditions)
+        {
+            var str = "";
+            for (int i = 0; i < Conditions.Count; i++)
+            {
 
+                if (i > 0)
+                {
+                    if (MatchAllFilter == true)
+                    {
+                        str = str + "AND ";
+                    }
+                    else
+                    {
+                        str = str + "OR ";
+                    }
+                }
+                Condition_Filter condition = Conditions[i];
+                str = str + SqlFilterGift(condition.SearchCriteria, condition.Condition, condition.Value);
+
+            }
+
+            var allgift = _appDbContext.Gifts.FromSqlRaw("Select * from dbo.Gift Where " + str).ToList();
+            var listgift = new List<GiftCampaignMV>();
+            foreach (var g in allgift)
+            {
+                GiftCampaignMV gift = new GiftCampaignMV
+                {
+                    Id = g.Id,
+                    GiftCode = g.GiftCode,
+                    GiftName = g.GiftName,
+                    CreateDate = g.CreateDate,
+                    Usagelimit = g.UsageLimit,
+                    Active = g.Active,
+                    Used = g.Used,
+                };
+                listgift.Add(gift);
+            }
+            return listgift;
+        }
+        public ICollection<WinnersVM> FilterWinner(bool MatchAllFilter, List<Condition_Filter> Conditions)
+        {
+            var str = "";
+            for (int i = 0; i < Conditions.Count; i++)
+            {
+
+                if (i > 0)
+                {
+                    if (MatchAllFilter == true)
+                    {
+                        str = str + "AND ";
+                    }
+                    else
+                    {
+                        str = str + "OR ";
+                    }
+                }
+                Condition_Filter condition = Conditions[i];
+                str = str + SqlFilterWinner(condition.SearchCriteria, condition.Condition, condition.Value);
+
+            }
+
+            var allwinner = _appDbContext.Winners.FromSqlRaw("Select w.id, w.WinDate, w.SendGiftStatus, w.IdCustomer, w.IdGift from dbo.Winner w , dbo.Gift g , dbo.Customer c Where w.IdCustomer = c.id and w.IdGift = g.id and " + str).ToList();
+            var listwinners = new List<WinnersVM>();
+            foreach (var winner in allwinner)
+            {
+                var ctm = _appDbContext.Customers.SingleOrDefault(x => x.Id == winner.IdCustomer);
+                var g = _appDbContext.Gifts.SingleOrDefault(x => x.Id == winner.IdGift);
+                WinnersVM wn = new WinnersVM
+                {
+                    FullName = ctm.Name,
+                    WinDate = winner.WinDate,
+                    GiftCode = g.GiftCode,
+                    GiftName = g.GiftName,
+                    SentGift = winner.SendGiftStatus
+                };
+                listwinners.Add(wn);
+            }
+            return listwinners;
+        }
 
         private string SqlFilterCampaign(int SearchCriteria, int Condition, string Value)
         {
@@ -911,6 +988,153 @@ namespace CMS_1.System.Campaign
             if (SearchCriteria == 7)
             {
                 str = str + "UseForSpin ";
+                if (Condition == 1)
+                {
+                    return str + "= '" + Value + "' ";
+                }
+                if (Condition == 2)
+                {
+                    return "not " + str + "= '" + Value + "' ";
+                }
+            }
+            return str;
+        }
+        private string SqlFilterGift(int SearchCriteria, int Condition, string Value)
+        {
+            var str = "";
+            if (SearchCriteria == 1)
+            {
+                str = str + "GiftCode ";
+                if (Condition == 1)
+                {
+                    return str + "like N'%" + Value + "%' ";
+                }
+                if (Condition == 2)
+                {
+                    return "not " + str + "like N'%" + Value + "%' ";
+                }
+            }
+            if (SearchCriteria == 2)
+            {
+                str = str + "GiftName ";
+                if (Condition == 1)
+                {
+                    return str + "like N'%" + Value + "%' ";
+                }
+                if (Condition == 2)
+                {
+                    return "not " + str + "like N'%" + Value + "%' ";
+                }
+            }
+            if (SearchCriteria == 3)
+            {
+                str = str + "CreateDate ";
+                if (Condition == 1)
+                {
+                    return str + ">= '" + Value + "'";
+                }
+                if (Condition == 2)
+                {
+                    return str + "<= '" + Value + "'";
+                }
+                if (Condition == 3)
+                {
+                    return str + "= '" + Value + "'";
+                }
+            }
+
+            if (SearchCriteria == 4)
+            {
+                str = str + "UsageLimit ";
+                if (Condition == 1)
+                {
+                    return str + ">= '" + Value + "'";
+                }
+                if (Condition == 2)
+                {
+                    return str + "<= '" + Value + "'";
+                }
+                if (Condition == 3)
+                {
+                    return str + "= '" + Value + "'";
+                }
+            }
+            
+            if (SearchCriteria == 5)
+            {
+                str = str + "Active ";
+                if (Condition == 1)
+                {
+                    return str + "= '" + Value + "' ";
+                }
+                if (Condition == 2)
+                {
+                    return "not " + str + "= '" + Value + "' ";
+                }
+            }
+            return str;
+        }
+        private string SqlFilterWinner(int SearchCriteria, int Condition, string Value)
+        {
+            var str = "";
+            if (SearchCriteria == 1)
+            {
+                str = str + "c.Name ";
+                if (Condition == 1)
+                {
+                    return str + "like N'%" + Value + "%' ";
+                }
+                if (Condition == 2)
+                {
+                    return "not " + str + "like N'%" + Value + "%' ";
+                }
+            }
+            if (SearchCriteria == 2)
+            {
+                str = str + "w.WinDate ";
+                if (Condition == 1)
+                {
+                    return str + ">= '" + Value + "'";
+                }
+                if (Condition == 2)
+                {
+                    return str + "<= '" + Value + "'";
+                }
+                if (Condition == 3)
+                {
+                    return str + "= '" + Value + "'";
+                }
+            }
+            if (SearchCriteria == 3)
+            {
+                str = str + "g.GiftCode ";
+                if (Condition == 1)
+                {
+                    return str + "like N'%" + Value + "%' ";
+                }
+                if (Condition == 2)
+                {
+                    return "not " + str + "like N'%" + Value + "%' ";
+                }
+            }
+            
+
+            if (SearchCriteria == 4)
+            {
+                str = str + "g.GiftName ";
+                if (Condition == 1)
+                {
+                    return str + "like N'%" + Value + "%' ";
+                }
+                if (Condition == 2)
+                {
+                    return "not " + str + "like N'%" + Value + "%' ";
+                }
+            }
+
+            if (SearchCriteria == 5)
+            {
+                str = str + "w.SendGiftStatus ";
                 if (Condition == 1)
                 {
                     return str + "= '" + Value + "' ";

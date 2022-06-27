@@ -97,9 +97,9 @@ namespace CMS_1.Models
             modelBuilder.Entity<Gift>(entity =>
             {
                 entity.HasData(
-                    new { Id = 1, GiftCode = "GIF2DHMAAB3E9Y", CreateDate= DateTime.Parse("2020-03-10"), UsageLimit = 1, Active = true, Used = 1 , IdGiftCategory = 1 , IdCampaign = 1 },
-                    new { Id = 2, GiftCode = "GIF2DERGH1B3WE", CreateDate = DateTime.Parse("2020-03-10"), UsageLimit = 1, Active = true, Used = 1, IdGiftCategory = 1, IdCampaign = 1 },
-                    new { Id = 3, GiftCode = "GIF2DQBJLYNCVSD", CreateDate = DateTime.Parse("2020-03-10"), UsageLimit = 1, Active = true, Used = 1, IdGiftCategory = 2, IdCampaign = 1 }
+                    new { Id = 1, GiftCode = "GIF2DHMAAB3E9Y", GiftName= "Hạt nêm Knorr Chay Nấm Hương 400g", CreateDate= DateTime.Parse("2020-03-10"), UsageLimit = 1, Active = true, Used = 1 , IdGiftCategory = 1 , IdCampaign = 1 },
+                    new { Id = 2, GiftCode = "GIF2DERGH1B3WE", GiftName = "Hạt nêm Knorr Chay Nấm Hương 400g", CreateDate = DateTime.Parse("2020-03-10"), UsageLimit = 1, Active = true, Used = 1, IdGiftCategory = 1, IdCampaign = 1 },
+                    new { Id = 3, GiftCode = "GIF2DQBJLYNCVSD", GiftName = "Hạt nêm Knorr Từ Thịt Thăn, Xương Ống & Tủy 600gr", CreateDate = DateTime.Parse("2020-03-10"), UsageLimit = 1, Active = true, Used = 1, IdGiftCategory = 2, IdCampaign = 1 }
                     );
             });
             modelBuilder.Entity<Winner>(entity =>

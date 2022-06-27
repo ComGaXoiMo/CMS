@@ -12,6 +12,7 @@ namespace CMS_1.Models
         [Required]
         [StringLength(30)]
         public string GiftCode { get; set; }
+        public string GiftName { get; set; }    
         public DateTime CreateDate { get; set; }
         public int UsageLimit { get; set; }
         public bool Active { get; set; }

@@ -1,5 +1,7 @@
 ﻿using CMS_1.Models;
+using CMS_1.Models.Filters;
 using CMS_1.Models.GiftCategories;
+using Microsoft.EntityFrameworkCore;
 
 namespace CMS_1.System.GiftCategories
 {
@@ -114,6 +116,79 @@ namespace CMS_1.System.GiftCategories
             {
                 return new GiftCategoriesResponse { success = false, Message = "error" };
             }
+        }
+
+        public ICollection<GiftCategory> FilterGiftCategory(bool MatchAllFilter, List<Condition_Filter> Conditions)
+        {
+            var str = "";
+            for (int i = 0; i < Conditions.Count; i++)
+            {
+
+                if (i > 0)
+                {
+                    if (MatchAllFilter == true)
+                    {
+                        str = str + "AND ";
+                    }
+                    else
+                    {
+                        str = str + "OR ";
+                    }
+                }
+                Condition_Filter condition = Conditions[i];
+                str = str + SqlFilterGiftCategory(condition.SearchCriteria, condition.Condition, condition.Value);
+
+            }
+
+            var allgiftcategory = _appDbContext.GiftCategories.FromSqlRaw("Select * from dbo.GiftCategory Where " + str).ToList();
+            
+            return allgiftcategory;
+        }
+        private string SqlFilterGiftCategory(int SearchCriteria, int Condition, string Value)
+        {
+            var str = "";
+            if (SearchCriteria == 1)
+            {
+                str = str + "name ";
+                if (Condition == 1)
+                {
+                    return str + "like N'%" + Value + "%' ";
+                }
+                if (Condition == 2)
+                {
+                    return "not " + str + "like N'%" + Value + "%' ";
+                }
+            }
+            if (SearchCriteria == 2)
+            {
+                str = str + "CreateDate ";
+                if (Condition == 1)
+                {
+                    return str + ">= '" + Value + "'";
+                }
+                if (Condition == 2)
+                {
+                    return str + "<= '" + Value + "'";
+                }
+                if (Condition == 3)
+                {
+                    return str + "= '" + Value + "'";
+                }
+            }
+            if (SearchCriteria == 3)
+            {
+                str = str + "Active ";
+                if (Condition == 1)
+                {
+                    return str + "= '" + Value + "' ";
+                }
+                if (Condition == 2)
+                {
+                    return "not " + str + "= '" + Value + "' ";
+                }
+            }
+
+            return str;
         }
     }
 }

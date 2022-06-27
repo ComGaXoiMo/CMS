@@ -26,5 +26,7 @@ namespace CMS_1.System.Campaign
         ICollection<CampaignMV> FilterCampaign(bool MatchAllFilter, List<Condition_Filter> Conditions);
         ICollection<BarcodeVM> FilterBarcode(bool MatchAllFilter, List<Condition_Filter> Conditions);
         ICollection<BarcodeHistoryVM> FilterBarcodeHistory(bool MatchAllFilter, List<Condition_Filter> Conditions);
+        ICollection<GiftCampaignMV> FilterGift(bool MatchAllFilter, List<Condition_Filter> Conditions);
+        ICollection<WinnersVM> FilterWinner(bool MatchAllFilter, List<Condition_Filter> Conditions);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using CMS_1.Models;
+using CMS_1.Models.Filters;
 using CMS_1.Models.GiftCategories;
 using CMS_1.System.GiftCategories;
 using Microsoft.AspNetCore.Authorization;
@@ -58,6 +59,26 @@ namespace CMS_1.Controllers
 
             return Ok(resul);
         }
-
+        [HttpPost]
+        //[Authorize]
+        public async Task<IActionResult> GetGiftCategoryFilter(bool MatchAllFilter, List<Condition_Filter> Conditions)
+        {
+            //Condition_Filter:
+            //SearchCriteria: 1: Gift Name
+            //  Condition: 1: includes , 2: is not include
+            //SearchCriteria: 2: Created Date
+            //  Condition: 1: more than, 2: less than, 3: exactly
+            //SearchCriteria: 3: Activation status
+            //  Condition: 1: is, 2: is not
+            try
+            {
+                var resul = _giftCategoriesService.FilterGiftCategory(MatchAllFilter, Conditions);
+                return Ok(resul);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
     }
 }

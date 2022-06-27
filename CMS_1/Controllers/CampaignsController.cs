@@ -179,5 +179,69 @@ namespace CMS_1.Controllers
 
         }
 
+        [HttpPost]
+        //  [Authorize]
+        public async Task<IActionResult> GetBarcodeHistoryFilter(bool MatchAllFilter, List<Condition_Filter> Conditions)
+        {
+            //Condition_Filter:
+            //SearchCriteria: 1 : Code
+            //  Condition: 1: includes , 2: is not include
+            //SearchCriteria: 2: Created Date, 3: Expired Date, 4: Scanned date
+            //  Condition: 1: more than, 2: less than, 3: exactly
+            //SearchCriteria: 5: Scanned Status, 6: Activation Status
+            //  Condition: 1: is, 2: is not
+            try
+            {
+                var resul = _campaignService.FilterBarcodeHistory(MatchAllFilter, Conditions);
+                return Ok(resul);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
+        }
+        [HttpPost]
+        //  [Authorize]
+        public async Task<IActionResult> GetGiftFilter(bool MatchAllFilter, List<Condition_Filter> Conditions)
+        {
+            //Condition_Filter:
+            //SearchCriteria: 1 : Code
+            //  Condition: 1: includes , 2: is not include
+            //SearchCriteria: 2: Created Date, 3: Expired Date, 4: Scanned date
+            //  Condition: 1: more than, 2: less than, 3: exactly
+            //SearchCriteria: 5: Scanned Status, 6: Activation Status
+            //  Condition: 1: is, 2: is not
+            try
+            {
+                var resul = _campaignService.FilterGift(MatchAllFilter, Conditions);
+                return Ok(resul);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+        [HttpPost]
+        //  [Authorize]
+        public async Task<IActionResult> GetWinnerFilter(bool MatchAllFilter, List<Condition_Filter> Conditions)
+        {
+            //Condition_Filter:
+            //SearchCriteria: 1 : Code
+            //  Condition: 1: includes , 2: is not include
+            //SearchCriteria: 2: Created Date, 3: Expired Date, 4: Scanned date
+            //  Condition: 1: more than, 2: less than, 3: exactly
+            //SearchCriteria: 5: Scanned Status, 6: Activation Status
+            //  Condition: 1: is, 2: is not
+            try
+            {
+                var resul = _campaignService.FilterWinner(MatchAllFilter, Conditions);
+                return Ok(resul);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
     }
 }

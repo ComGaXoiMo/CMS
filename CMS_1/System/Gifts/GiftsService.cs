@@ -1,6 +1,8 @@
 ﻿using CMS_1.Models;
 using CMS_1.Models.Campaigns;
+using CMS_1.Models.Filters;
 using CMS_1.Models.GiftCategories;
+using Microsoft.EntityFrameworkCore;
 
 namespace CMS_1.System.Gifts
 {
@@ -41,6 +43,7 @@ namespace CMS_1.System.Gifts
                 {
                     Id = gift.Id,
                     GiftCode = gift.GiftCode,
+                    GiftName = gift.GiftName,
                     CampaignName = campaign.Name,
                     CreateDate = gift.CreateDate,
                     ExpiredDate = campaign.EndDay,
@@ -57,7 +60,7 @@ namespace CMS_1.System.Gifts
             var giftstrings = new char[10];
             var random = new Random();
             var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789";
-
+            var gc = _appDbContext.GiftCategories.SingleOrDefault(x => x.Id == model.IdGiftCategoty);
 
             for (int i = 0; i < giftstrings.Length; i++)
             {
@@ -69,6 +72,7 @@ namespace CMS_1.System.Gifts
             var gift = new Gift
             {
                 GiftCode = finalgift,
+                GiftName = gc.Name,
                 CreateDate = DateTime.Now,
                 UsageLimit = model.UseLimit,
                 Active = true,
@@ -79,5 +83,122 @@ namespace CMS_1.System.Gifts
             _appDbContext.Add(gift);
             _appDbContext.SaveChanges();
         }
+        public ICollection<GiftCampaignMV> FilterGift(bool MatchAllFilter, List<Condition_Filter> Conditions)
+        {
+            var str = "";
+            for (int i = 0; i < Conditions.Count; i++)
+            {
+
+                if (i > 0)
+                {
+                    if (MatchAllFilter == true)
+                    {
+                        str = str + "AND ";
+                    }
+                    else
+                    {
+                        str = str + "OR ";
+                    }
+                }
+                Condition_Filter condition = Conditions[i];
+                str = str + SqlFilterGift(condition.SearchCriteria, condition.Condition, condition.Value);
+
+            }
+
+            var allgift = _appDbContext.Gifts.FromSqlRaw("Select * from dbo.Gift Where " + str).ToList();
+            var listgift = new List<GiftCampaignMV>();
+            foreach (var g in allgift)
+            {
+                GiftCampaignMV gift = new GiftCampaignMV
+                {
+                    Id = g.Id,
+                    GiftCode = g.GiftCode,
+                    GiftName = g.GiftName,
+                    CreateDate = g.CreateDate,
+                    Usagelimit = g.UsageLimit,
+                    Active = g.Active,
+                    Used = g.Used,
+                };
+                listgift.Add(gift);
+            }
+            return listgift;
+        }
+        private string SqlFilterGift(int SearchCriteria, int Condition, string Value)
+        {
+            var str = "";
+            if (SearchCriteria == 1)
+            {
+                str = str + "GiftCode ";
+                if (Condition == 1)
+                {
+                    return str + "like N'%" + Value + "%' ";
+                }
+                if (Condition == 2)
+                {
+                    return "not " + str + "like N'%" + Value + "%' ";
+                }
+            }
+            if (SearchCriteria == 2)
+            {
+                str = str + "GiftName ";
+                if (Condition == 1)
+                {
+                    return str + "like N'%" + Value + "%' ";
+                }
+                if (Condition == 2)
+                {
+                    return "not " + str + "like N'%" + Value + "%' ";
+                }
+            }
+            if (SearchCriteria == 3)
+            {
+                str = str + "CreateDate ";
+                if (Condition == 1)
+                {
+                    return str + ">= '" + Value + "'";
+                }
+                if (Condition == 2)
+                {
+                    return str + "<= '" + Value + "'";
+                }
+                if (Condition == 3)
+                {
+                    return str + "= '" + Value + "'";
+                }
+            }
+
+            if (SearchCriteria == 4)
+            {
+                str = str + "UsageLimit ";
+                if (Condition == 1)
+                {
+                    return str + ">= '" + Value + "'";
+                }
+                if (Condition == 2)
+                {
+                    return str + "<= '" + Value + "'";
+                }
+                if (Condition == 3)
+                {
+                    return str + "= '" + Value + "'";
+                }
+            }
+
+            if (SearchCriteria == 5)
+            {
+                str = str + "Active ";
+                if (Condition == 1)
+                {
+                    return str + "= '" + Value + "' ";
+                }
+                if (Condition == 2)
+                {
+                    return "not " + str + "= '" + Value + "' ";
+                }
+            }
+            return str;
+        }
+
+        
     }
 }
