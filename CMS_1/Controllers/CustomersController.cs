@@ -1,4 +1,5 @@
 ﻿using CMS_1.Models;
+using CMS_1.Models.Customers;
 using CMS_1.Models.Filters;
 using CMS_1.System.Customers;
 using Microsoft.AspNetCore.Authorization;
@@ -34,7 +35,7 @@ namespace CMS_1.Controllers
             return Ok(resul);
         }
         [HttpPost]
-        //  [Authorize]
+        [Authorize]
         public async Task<IActionResult> GetCustomerFilter(bool MatchAllFilter, List<Condition_Filter> Conditions)
         {
             //Condition_Filter:
@@ -53,7 +54,20 @@ namespace CMS_1.Controllers
             {
                 return BadRequest();
             }
-
+        }
+        [HttpPost]
+        [Authorize]
+        public IActionResult ExportCustomerToExcel(List<CustomerVM> model)
+        {
+            if (model == null)
+            {
+                return BadRequest();
+            }
+            var stream = _customersService.SpreadsheetCustomer(model);
+            stream.Position = 0;
+            var excelName = "Customer_list.xlsx";
+            var contenType = "application/octet-stream";
+            return File(stream, contenType, excelName);
         }
     }
 }

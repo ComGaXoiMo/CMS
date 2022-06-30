@@ -8,5 +8,6 @@ namespace CMS_1.System.Customers
         ICollection<CustomerVM> GetAllCustomer();
         Task<CustomerResponse> BlockCustomer(int id, bool status);
         ICollection<CustomerVM> FilterCustomer(bool MatchAllFilter, List<Condition_Filter> Conditions);
+        MemoryStream SpreadsheetCustomer(List<CustomerVM> model);
     }
 }

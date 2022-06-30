@@ -2,6 +2,7 @@
 using CMS_1.Models.Filters;
 using CMS_1.Models.GiftCategories;
 using Microsoft.EntityFrameworkCore;
+using OfficeOpenXml;
 
 namespace CMS_1.System.GiftCategories
 {
@@ -17,10 +18,24 @@ namespace CMS_1.System.GiftCategories
         }
 
 
-        public ICollection<GiftCategory> GetAllGiftCategories()
+        public ICollection<GiftCategoriesVM> GetAllGiftCategories()
         {
-            var ds = _appDbContext.GiftCategories.ToList();
-            return ds;
+            var allgiftcategory = _appDbContext.GiftCategories.ToList();
+            var listgiftcategory = new List<GiftCategoriesVM>();
+            foreach (var giftCategory in allgiftcategory)
+            {
+                GiftCategoriesVM gc = new GiftCategoriesVM
+                {
+                    Id = giftCategory.Id,
+                    Name = giftCategory.Name,
+                    Decription = giftCategory.Decription,
+                    Count = giftCategory.Count,
+                    CreateDate = giftCategory.CreateDate,
+                    Active = giftCategory.Active,
+                };
+                listgiftcategory.Add(gc);
+            }
+            return listgiftcategory;
         }
         public async Task<GiftCategoriesResponse> CreateGiftCategory(GiftCategoriesResquest model)
         {
@@ -118,7 +133,7 @@ namespace CMS_1.System.GiftCategories
             }
         }
 
-        public ICollection<GiftCategory> FilterGiftCategory(bool MatchAllFilter, List<Condition_Filter> Conditions)
+        public ICollection<GiftCategoriesVM> FilterGiftCategory(bool MatchAllFilter, List<Condition_Filter> Conditions)
         {
             var str = "";
             for (int i = 0; i < Conditions.Count; i++)
@@ -141,8 +156,21 @@ namespace CMS_1.System.GiftCategories
             }
 
             var allgiftcategory = _appDbContext.GiftCategories.FromSqlRaw("Select * from dbo.GiftCategory Where " + str).ToList();
-            
-            return allgiftcategory;
+            var listgiftcategory = new List<GiftCategoriesVM>();
+            foreach (var giftCategory in allgiftcategory)
+            {
+                GiftCategoriesVM gc = new GiftCategoriesVM
+                {
+                    Id = giftCategory.Id,
+                    Name = giftCategory.Name,
+                    Decription = giftCategory.Decription,
+                    Count = giftCategory.Count,
+                    CreateDate = giftCategory.CreateDate,
+                    Active = giftCategory.Active,
+                };
+                listgiftcategory.Add(gc);
+            }
+            return listgiftcategory;
         }
         private string SqlFilterGiftCategory(int SearchCriteria, int Condition, string Value)
         {
@@ -189,6 +217,21 @@ namespace CMS_1.System.GiftCategories
             }
 
             return str;
+        }
+
+        public MemoryStream SpreadsheetGiftCategory(List<GiftCategoriesVM> model)
+        {
+            var stream = new MemoryStream();
+
+
+            using (ExcelPackage pck = new ExcelPackage(stream))
+            {
+                var worksheet = pck.Workbook.Worksheets.Add("Sheet7");
+                worksheet.Cells.LoadFromCollection(model, true);
+                pck.Save();
+            }
+            stream.Position = 0;
+            return stream;
         }
     }
 }

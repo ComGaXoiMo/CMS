@@ -10,6 +10,7 @@ using CMS_1.Models.Campaigns;
 using CMS_1.Models.Filters;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using OfficeOpenXml;
 
 namespace CMS_1.System.Campaign
 {
@@ -539,8 +540,65 @@ namespace CMS_1.System.Campaign
             }
             return listwinnerVM;
         }
+        
+        public MemoryStream SpreadsheetBarcode(List<BarcodeVM> model)
+        {
+            var stream = new MemoryStream();
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            using (ExcelPackage pck = new ExcelPackage(stream))
+            {
+                var worksheet = pck.Workbook.Worksheets.Add("Sheet1");
+                worksheet.Cells.LoadFromCollection(model, true);
+                pck.Save();
+            }
+            stream.Position = 0;
+            return stream;
+        }
+        public MemoryStream SpreadsheetBarcodeHistory(List<BarcodeHistoryVM> model)
+        {
+            var stream = new MemoryStream();
 
-       
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            using (ExcelPackage pck = new ExcelPackage(stream))
+            {
+                var worksheet = pck.Workbook.Worksheets.Add("Sheet2");
+                worksheet.Cells.LoadFromCollection(model, true);
+                pck.Save();
+            }
+            stream.Position = 0;
+            return stream;
+        }
+        public MemoryStream SpreadsheetGift(List<GiftCampaignMV> model)
+        {
+
+            var stream = new MemoryStream();
+
+
+            using (ExcelPackage pck = new ExcelPackage(stream))
+            {
+                var worksheet = pck.Workbook.Worksheets.Add("Sheet3");
+                worksheet.Cells.LoadFromCollection(model, true);
+                pck.Save();
+            }
+            stream.Position = 0;
+            return stream;
+        }
+        public MemoryStream SpreadsheetWinner(List<WinnersVM> model)
+        {
+
+            var stream = new MemoryStream();
+
+
+            using (ExcelPackage pck = new ExcelPackage(stream))
+            {
+                var worksheet = pck.Workbook.Worksheets.Add("Sheet4");
+                worksheet.Cells.LoadFromCollection(model, true);
+                pck.Save();
+            }
+            stream.Position = 0;
+            return stream;
+        }
+
         public ICollection<CampaignMV> FilterCampaign(bool MatchAllFilter, List<Condition_Filter> Conditions)
         {
             var str = "";
@@ -1146,6 +1204,8 @@ namespace CMS_1.System.Campaign
             }
             return str;
         }
+
+        
     }
 }
     

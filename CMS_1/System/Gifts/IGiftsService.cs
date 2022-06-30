@@ -9,5 +9,7 @@ namespace CMS_1.System.Gifts
         ICollection<GiftsVM> GetAllGifts();
         Task<CreateGiftResponse> CreateNewGifts(CreateGiftRequest model);
         ICollection<GiftCampaignMV> FilterGift(bool MatchAllFilter, List<Condition_Filter> Conditions);
+
+        MemoryStream SpreadsheetGift(List<GiftsVM> model);
     }
 }

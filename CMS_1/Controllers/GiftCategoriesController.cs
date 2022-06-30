@@ -60,7 +60,7 @@ namespace CMS_1.Controllers
             return Ok(resul);
         }
         [HttpPost]
-        //[Authorize]
+        [Authorize]
         public async Task<IActionResult> GetGiftCategoryFilter(bool MatchAllFilter, List<Condition_Filter> Conditions)
         {
             //Condition_Filter:
@@ -79,6 +79,20 @@ namespace CMS_1.Controllers
             {
                 return BadRequest();
             }
+        }
+        [HttpPost]
+        [Authorize]
+        public IActionResult ExportWinnerToExcel(List<GiftCategory> model)
+        {
+            if (model == null)
+            {
+                return BadRequest();
+            }
+            var stream = _giftCategoriesService.SpreadsheetGiftCategory(model);
+            stream.Position = 0;
+            var excelName = "Gift-Category_list.xlsx";
+            var contenType = "application/octet-stream";
+            return File(stream, contenType, excelName);
         }
     }
 }

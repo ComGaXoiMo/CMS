@@ -6,6 +6,7 @@ using CMS_1.System.Campaign;
 using CMS_1.System.Gifts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using OfficeOpenXml;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -67,7 +68,7 @@ namespace CMS_1.Controllers
             return Ok(resul);
         }
         [HttpGet("{id}")]
-            //[Authorize]
+        [Authorize]
         public async Task<IActionResult> GetAllBarcodeHistories(int id)
         {
             var resul = _campaignService.GetAllBarcodeHistories(id);
@@ -138,7 +139,7 @@ namespace CMS_1.Controllers
             return Ok(resul);
         }
         [HttpPost]
-      //  [Authorize]
+        [Authorize]
         public async Task<IActionResult> GetCampaignFilter(bool MatchAllFilter, List<Condition_Filter> Conditions)
         {
             //Condition_Filter:
@@ -157,7 +158,7 @@ namespace CMS_1.Controllers
             }
         }
         [HttpPost]
-        //  [Authorize]
+        [Authorize]
         public async Task<IActionResult> GetBarcodeFilter(bool MatchAllFilter, List<Condition_Filter> Conditions)
         {
             //Condition_Filter:
@@ -180,7 +181,7 @@ namespace CMS_1.Controllers
         }
 
         [HttpPost]
-        //  [Authorize]
+        [Authorize]
         public async Task<IActionResult> GetBarcodeHistoryFilter(bool MatchAllFilter, List<Condition_Filter> Conditions)
         {
             //Condition_Filter:
@@ -202,7 +203,7 @@ namespace CMS_1.Controllers
 
         }
         [HttpPost]
-        //  [Authorize]
+        [Authorize]
         public async Task<IActionResult> GetGiftFilter(bool MatchAllFilter, List<Condition_Filter> Conditions)
         {
             //Condition_Filter:
@@ -223,7 +224,7 @@ namespace CMS_1.Controllers
             }
         }
         [HttpPost]
-        //  [Authorize]
+        [Authorize]
         public async Task<IActionResult> GetWinnerFilter(bool MatchAllFilter, List<Condition_Filter> Conditions)
         {
             //Condition_Filter:
@@ -242,6 +243,62 @@ namespace CMS_1.Controllers
             {
                 return BadRequest();
             }
+        }
+        [HttpPost]
+        [Authorize]
+        public IActionResult ExportBarcodeToExcel(List<BarcodeVM> model)
+        {
+            if ( model == null)
+            {
+                return BadRequest();
+            }
+            var stream = _campaignService.SpreadsheetBarcode(model);
+            stream.Position = 0;
+            var excelName = "Barcode_list.xlsx";
+            var contenType = "application/octet-stream";
+            return File(stream, contenType, excelName);
+        }
+        [HttpPost]
+        [Authorize]
+        public IActionResult ExportBarcodeHistoryToExcel(List<BarcodeHistoryVM> model)
+        {
+            if (model == null)
+            {
+                return BadRequest();
+            }
+            var stream = _campaignService.SpreadsheetBarcodeHistory(model);
+            stream.Position = 0;
+            var excelName = "Barcode-History_list.xlsx";
+            var contenType = "application/octet-stream";
+            return File(stream, contenType, excelName);
+        }
+        [HttpPost]
+        [Authorize]
+        public IActionResult ExportGIftToExcel(List<GiftCampaignMV> model)
+        {
+            if (model == null)
+            {
+                return BadRequest();
+            }
+            var stream = _campaignService.SpreadsheetGift (model);
+            stream.Position = 0;
+            var excelName = "Gift_list.xlsx";
+            var contenType = "application/octet-stream";
+            return File(stream, contenType, excelName);
+        }
+        [HttpPost]
+        [Authorize]
+        public IActionResult ExportWinnerToExcel(List<WinnersVM> model)
+        {
+            if (model == null)
+            {
+                return BadRequest();
+            }
+            var stream = _campaignService.SpreadsheetWinner(model);
+            stream.Position = 0;
+            var excelName = "Winner_list.xlsx";
+            var contenType = "application/octet-stream";
+            return File(stream, contenType, excelName);
         }
     }
 }

@@ -70,3 +70,7 @@ C:\Users\viet\Desktop\THUCTAP\CMS_1\CMS_1\bin\Debug\net6.0\runtimes\win-arm64\na
 C:\Users\viet\Desktop\THUCTAP\CMS_1\CMS_1\bin\Debug\net6.0\runtimes\win-x64\native\libSkiaSharp.dll
 C:\Users\viet\Desktop\THUCTAP\CMS_1\CMS_1\bin\Debug\net6.0\runtimes\win-x86\native\libSkiaSharp.dll
 C:\Users\viet\Desktop\THUCTAP\CMS_1\CMS_1\bin\Debug\net6.0\AutoMapper.dll
+C:\Users\viet\Desktop\THUCTAP\CMS_1\CMS_1\bin\Debug\net6.0\EPPlus.dll
+C:\Users\viet\Desktop\THUCTAP\CMS_1\CMS_1\bin\Debug\net6.0\EPPlus.Interfaces.dll
+C:\Users\viet\Desktop\THUCTAP\CMS_1\CMS_1\bin\Debug\net6.0\EPPlus.System.Drawing.dll
+C:\Users\viet\Desktop\THUCTAP\CMS_1\CMS_1\bin\Debug\net6.0\Microsoft.IO.RecyclableMemoryStream.dll

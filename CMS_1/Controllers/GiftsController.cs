@@ -1,6 +1,7 @@
 ﻿using CMS_1.Models;
 using CMS_1.Models.Campaigns;
 using CMS_1.Models.Filters;
+using CMS_1.Models.GiftCategories;
 using CMS_1.System.Gifts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -52,6 +53,20 @@ namespace CMS_1.Controllers
             {
                 return BadRequest();
             }
+        }
+        [HttpPost]
+        [Authorize]
+        public IActionResult ExportGiftToExcel(List<GiftsVM> model)
+        {
+            if (model == null)
+            {
+                return BadRequest();
+            }
+            var stream = _giftsService.SpreadsheetGift(model);
+            stream.Position = 0;
+            var excelName = "Gift-Code_list.xlsx";
+            var contenType = "application/octet-stream";
+            return File(stream, contenType, excelName);
         }
     }
 }

@@ -2,6 +2,7 @@
 using CMS_1.Models.Customers;
 using CMS_1.Models.Filters;
 using Microsoft.EntityFrameworkCore;
+using OfficeOpenXml;
 
 namespace CMS_1.System.Customers
 {
@@ -189,6 +190,21 @@ namespace CMS_1.System.Customers
                 }
             }
             return str;
+        }
+
+        public MemoryStream SpreadsheetCustomer(List<CustomerVM> model)
+        {
+            var stream = new MemoryStream();
+
+
+            using (ExcelPackage pck = new ExcelPackage(stream))
+            {
+                var worksheet = pck.Workbook.Worksheets.Add("Sheet5");
+                worksheet.Cells.LoadFromCollection(model, true);
+                pck.Save();
+            }
+            stream.Position = 0;
+            return stream;
         }
     }
 }

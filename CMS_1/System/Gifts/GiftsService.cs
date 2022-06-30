@@ -3,6 +3,7 @@ using CMS_1.Models.Campaigns;
 using CMS_1.Models.Filters;
 using CMS_1.Models.GiftCategories;
 using Microsoft.EntityFrameworkCore;
+using OfficeOpenXml;
 
 namespace CMS_1.System.Gifts
 {
@@ -122,6 +123,21 @@ namespace CMS_1.System.Gifts
                 listgift.Add(gift);
             }
             return listgift;
+        }
+        public MemoryStream SpreadsheetGift(List<GiftsVM> model)
+        {
+
+            var stream = new MemoryStream();
+
+
+            using (ExcelPackage pck = new ExcelPackage(stream))
+            {
+                var worksheet = pck.Workbook.Worksheets.Add("Sheet6");
+                worksheet.Cells.LoadFromCollection(model, true);
+                pck.Save();
+            }
+            stream.Position = 0;
+            return stream;
         }
         private string SqlFilterGift(int SearchCriteria, int Condition, string Value)
         {

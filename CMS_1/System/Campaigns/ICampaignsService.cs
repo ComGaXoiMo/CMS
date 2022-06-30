@@ -28,5 +28,9 @@ namespace CMS_1.System.Campaign
         ICollection<BarcodeHistoryVM> FilterBarcodeHistory(bool MatchAllFilter, List<Condition_Filter> Conditions);
         ICollection<GiftCampaignMV> FilterGift(bool MatchAllFilter, List<Condition_Filter> Conditions);
         ICollection<WinnersVM> FilterWinner(bool MatchAllFilter, List<Condition_Filter> Conditions);
+        MemoryStream SpreadsheetBarcode(List<BarcodeVM> model);
+        MemoryStream SpreadsheetBarcodeHistory(List<BarcodeHistoryVM> model);
+        MemoryStream SpreadsheetGift(List<GiftCampaignMV> model);
+        MemoryStream SpreadsheetWinner(List<WinnersVM> model);
     }
 }
